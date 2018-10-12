@@ -5,3 +5,4 @@ pvc_servlets/WebContent/WEB-INF
 .setting
 .project
 .settings/*
+pvc_servlets/.classpath
