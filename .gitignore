@@ -3,5 +3,5 @@ pvc_servlets/src/Config.java
 pvc_servlets/WebContent/META-INF
 pvc_servlets/WebContent/WEB-INF
 pvc_servlets/.project
-.settings/*
+pvc_servlets/.settings/*
 pvc_servlets/.classpath
