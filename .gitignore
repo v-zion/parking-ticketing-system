@@ -2,3 +2,6 @@ pvc_servlets/build/*
 pvc_servlets/src/Config.java
 pvc_servlets/WebContent/META-INF
 pvc_servlets/WebContent/WEB-INF
+.setting
+.project
+.settings/*
