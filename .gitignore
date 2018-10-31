@@ -5,3 +5,4 @@ pvc_servlets/WebContent/WEB-INF
 pvc_servlets/.project
 pvc_servlets/.settings/*
 pvc_servlets/.classpath
+lib/config.dart
