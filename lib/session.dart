@@ -9,7 +9,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class Session {
-  static final String url="http://192.168.31.134:8080/lab8-whatsapp/";
+  static final String url="http://192.168.31.134:8080/pvc_servlets/";
   static final Session _session = new Session._internal();
   factory Session(){
     return _session;
