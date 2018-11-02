@@ -31,6 +31,7 @@ class CarInfoAll extends State<CarInfo>{
     super.initState();
     Session login = new Session();
     login.get(login.getURL()+"CarInfo").then((q){
+      print(q);
       if(json.decode(q)["status"]) {
         setState(() {
 //        print(q);

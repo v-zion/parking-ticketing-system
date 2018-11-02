@@ -38,7 +38,7 @@ create table payer (
 	cid varchar(10) not null,
 	uid varchar(10) not null,
 	start_time timestamp not null default now(),
-	foreign key (cid) references users on delete restrict,
+	foreign key (cid) references car on delete restrict,
 	foreign key (uid) references users on delete restrict,
 	primary key (cid)
 );
