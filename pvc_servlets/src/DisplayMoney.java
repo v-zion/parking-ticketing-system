@@ -1,6 +1,8 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,48 +11,55 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class NewUserRegisteration
+ * Servlet implementation class DisplayMoney
  */
-@WebServlet("/NewUserRegisteration")
-public class NewUserRegisteration extends HttpServlet {
+@WebServlet("/DisplayMoney")
+public class DisplayMoney extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewUserRegisteration() {
+    public DisplayMoney() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		String userID = request.getParameter("uid");
-		String name = request.getParameter("name");
-		String phoneNum = request.getParameter("phone");
-		String userType = request.getParameter("class");
+		if(session.getAttribute("id") == null) { //not logged in
+			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
+			return;
+		}
 		
-		String newUserQuery = "insert into users (uid, name, phone, class) " + "values (?, ?, ?, ?)"
-				+ "where not exists (select * from users where uid = ?";
+		String userid = (String) session.getAttribute("id");
+//		String userid= "1234";
+		String query = 
+				"select amount from wallet "+
+				"where uid = ?";
+		String res = DbHelper.executeQueryJson(query, 
+				new DbHelper.ParamType[] { 
+						DbHelper.ParamType.STRING}, 
+				new String[] {userid});
 		
-		String json = DbHelper.executeUpdateJson(newUserQuery, 
-			new DbHelper.ParamType[] {DbHelper.ParamType.STRING, 
-					DbHelper.ParamType.STRING, 
-					DbHelper.ParamType.STRING, 
-					DbHelper.ParamType.INT, 
-					DbHelper.ParamType.STRING},
-				new String[] {userID, name, phoneNum, userType, userID});
-		
-		response.getWriter().print(json);
+		PrintWriter out = response.getWriter();
+		out.print(res);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	public static void main(String[] args) throws ServletException, IOException {
+		new DisplayMoney().doGet(null, null);
 	}
 
 }
