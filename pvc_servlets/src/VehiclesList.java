@@ -31,14 +31,16 @@ public class VehiclesList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-//		if(session.getAttribute("id") == null) { //not logged in
-//			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
-//			return;
-//		}
+		if(session.getAttribute("id") == null) { //not logged in
+			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
+			return;
+		}
 		String uid = (String) session.getAttribute("id");
+//		String uid = "p1";
+//		response.getWriter().print(uid);
 //		String all_cars = "select cid, null, null, null from owns where uid = ?";
 		String parked_cars = "with parks_tmp as ("
-//				+ "select cid, pid, entry_time from owns natural left outer join parks where uid = ?) "
+				+ "select cid, pid, entry_time from owns natural left outer join parks where uid = ?) "
 				+ "select cid, uid, start_time, location, price, entry_time from (select * from parks_tmp natural left outer join parking_mall) "
 				+ "as tmp natural left outer join payer ";
 		//		List<List<Object>> res_all_cars = DbHelper.executeQueryList(all_cars, 
