@@ -39,11 +39,11 @@ public class ExitParking extends HttpServlet {
 		String cid = (String) request.getParameter("cid");
 		String pid = (String) request.getParameter("pid");
 		String floor = (String) request.getParameter("floor");
-		String park = "delete from parks where cid=? and pid=? and floor_number=?)";
+		String park = "delete from parks where cid=? and pid=? and floor_number=?";
 		String reduce = "update parking_floor "
 				+ "set free_space = free_space + 1 "
 				+ "where pid = ? and floor_number = ?";
-		String payer = "delete from payer where cid=? and uid=?)";
+		String payer = "delete from payer where cid=? and uid=?";
 		String res = DbHelper.executeUpdateJson(park, 
 				new DbHelper.ParamType[] { 
 						DbHelper.ParamType.STRING,

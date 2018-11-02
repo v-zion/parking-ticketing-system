@@ -35,6 +35,7 @@ class MySearchPage extends State<SearchSite> {
       appBar: AppBar(title: Text(title)),
       body: new Column(
         children: <Widget>[
+          const Text('Search', style: TextStyle(fontSize: 40.0),),
           TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
                 autofocus: true,
@@ -78,7 +79,7 @@ Widget drawit(BuildContext context){
       padding: EdgeInsets.zero,
       children: <Widget>[
         DrawerHeader(
-          child: Text('Yo'),
+          child: Text('PVC'),
           decoration: BoxDecoration(
             color: Colors.blue,
           ),
