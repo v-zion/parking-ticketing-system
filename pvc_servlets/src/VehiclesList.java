@@ -38,8 +38,9 @@ public class VehiclesList extends HttpServlet {
 		String uid = (String) session.getAttribute("id");
 //		String all_cars = "select cid, null, null, null from owns where uid = ?";
 		String parked_cars = "with parks_tmp as ("
-				+ "select cid, entry_time from owns natural left outer join parks where uid = ?) "
-				+ "select cid, uid, start_time, location, price, entry_time from (select * from parks_tmp natural join parking_mall) as tmp natural join payer ";
+//				+ "select cid, pid, entry_time from owns natural left outer join parks where uid = ?) "
+				+ "select cid, uid, start_time, location, price, entry_time from (select * from parks_tmp natural left outer join parking_mall) "
+				+ "as tmp natural left outer join payer ";
 		//		List<List<Object>> res_all_cars = DbHelper.executeQueryList(all_cars, 
 //				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 //				new String[] {uid});
