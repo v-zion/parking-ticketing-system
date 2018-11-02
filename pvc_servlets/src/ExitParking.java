@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class RegisterUser
+ * Servlet implementation class ExitParking
  */
-@WebServlet("/RegisterUser")
-public class RegisterUser extends HttpServlet {
+@WebServlet("/ExitParking")
+public class ExitParking extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterUser() {
+    public ExitParking() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,42 +30,39 @@ public class RegisterUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String userid = (String) request.getParameter("uid");
-		String name = (String) request.getParameter("name");
-		String phone_number= (String) request.getParameter("phone");
-		Integer userclass= Integer.parseInt(request.getParameter("class"));
-		String password = (String) request.getParameter("password");
-		String query = 
-				"insert into users values (?,?,?,?)";
-		String res = DbHelper.executeUpdateJson(query, 
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) { //not logged in
+			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
+			return;
+		}
+		String uid = (String) session.getAttribute("id");
+		String cid = (String) request.getParameter("cid");
+		String pid = (String) request.getParameter("pid");
+		String floor = (String) request.getParameter("floor");
+		String park = "delete from parks where cid=? and pid=? and floor_number=?)";
+		String reduce = "update parking_floor "
+				+ "set free_space = free_space + 1 "
+				+ "where pid = ? and floor_number = ?";
+		String payer = "delete from payer where cid=? and uid=?)";
+		String res = DbHelper.executeUpdateJson(park, 
 				new DbHelper.ParamType[] { 
 						DbHelper.ParamType.STRING,
 						DbHelper.ParamType.STRING,
-						DbHelper.ParamType.STRING,
-						DbHelper.ParamType.INT}, 
-				new Object[] {userid, name, phone_number, userclass});
-		
-		Integer amount=0;;
-		String query2 = 
-				"insert into wallet values (?,?)";
-		String res2 = DbHelper.executeUpdateJson(query2, 
-				new DbHelper.ParamType[] { 
-						DbHelper.ParamType.STRING,
-						DbHelper.ParamType.INT}, 
-				new Object[] {userid,amount});
-		
-		String query3 = 
-				"insert into password values (?,?)";
-		String res3 = DbHelper.executeUpdateJson(query3, 
+						DbHelper.ParamType.STRING}, 
+				new String[] {cid, pid, floor});
+		DbHelper.executeUpdateJson(reduce, 
 				new DbHelper.ParamType[] { 
 						DbHelper.ParamType.STRING,
 						DbHelper.ParamType.STRING}, 
-				new String[] {userid,password});
+				new String[] {pid, floor});
+		DbHelper.executeUpdateJson(payer, 
+				new DbHelper.ParamType[] { 
+						DbHelper.ParamType.STRING,
+						DbHelper.ParamType.STRING}, 
+				new String[] {cid, uid});
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);
-
 	}
 
 	/**
@@ -74,10 +71,6 @@ public class RegisterUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-	
-	public static void main(String[] args) throws ServletException, IOException {
-		new RegisterUser().doGet(null, null);
 	}
 
 }

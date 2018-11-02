@@ -2,25 +2,18 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
 import 'dart:async';
+import 'home.dart';
 
 
 class MyWallet extends StatefulWidget{
-  var uid;
-  MyWallet(s){
-    uid=s;
-  }
   @override
   MyWalletPage createState() {
-    return MyWalletPage(uid);
+    return MyWalletPage();
   }
 }
 
 class MyWalletPage extends State<MyWallet>{
   var outcome;
-  var uid;
-  MyWalletPage(s){
-    uid=s;
-  }
   @override
   void initState() {
     // TODO: implement initState
@@ -45,10 +38,10 @@ class MyWalletPage extends State<MyWallet>{
       login.get(login.getURL()+"UpdateMoney?amount="+text).then((s){
         if(json.decode(s)["status"])
         {
-//          print(s);
+          print(s);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => MyWallet(uid)),
+            MaterialPageRoute(builder: (context) => MyWallet()),
           );
         }
 
@@ -82,9 +75,13 @@ class MyWalletPage extends State<MyWallet>{
 
     if(outcome==null){
       return new Scaffold(
-        appBar: AppBar(
-        ),
-        body: new Text("Loading ..."),
+          appBar: new AppBar(
+              title: const Text('Loading')
+          ),
+          body: new Center(
+            child: new CircularProgressIndicator(),
+          ),
+          drawer: drawit(context)
       );
     }
     else {
@@ -102,10 +99,10 @@ class MyWalletPage extends State<MyWallet>{
                     color: Theme.of(context).cardColor),                  //new
                 child: _buildTextComposer(),                       //modified
               ),
-
             ],
-          )
+          ),
 
+          drawer: drawit(context)
       );
     }
 

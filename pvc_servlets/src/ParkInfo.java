@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class UpdateMoney
+ * Servlet implementation class ParkInfo
  */
-@WebServlet("/UpdateMoney")
-public class UpdateMoney extends HttpServlet {
+@WebServlet("/ParkInfo")
+public class ParkInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateMoney() {
+    public ParkInfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +30,17 @@ public class UpdateMoney extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) { //not logged in
-			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
-			return;
-		}
 		
-		String userid = (String) session.getAttribute("id");
-		Integer am = Integer.parseInt(request.getParameter("amount"));
-		System.out.println(am);
+		
+		String pid = (String) request.getParameter("pid");
 		String query = 
-				"update wallet "
-				+ "set amount = amount+? "+
-				"where uid=?";
-		String res = DbHelper.executeUpdateJson(query, 
+				"select * from parking_mall natural join parking_floor where pid=? and free_space>0";
+		String res = DbHelper.executeQueryJson(query, 
 				new DbHelper.ParamType[] { 
-						DbHelper.ParamType.INT,
-						DbHelper.ParamType.STRING}, 
-				new Object[] {am, userid});
-		System.out.println(res);
+						DbHelper.ParamType.STRING
+						},
+				new String[] {pid});
+		
 		PrintWriter out = response.getWriter();
 		out.print(res);
 	}
@@ -62,7 +54,7 @@ public class UpdateMoney extends HttpServlet {
 	}
 	
 	public static void main(String[] args) throws ServletException, IOException {
-		new UpdateMoney().doGet(null, null);
+		new ParkInfo().doGet(null, null);
 	}
 
 }
