@@ -35,9 +35,12 @@ public class NewUserRegisteration extends HttpServlet {
 		String newUserQuery = "insert into users (uid, name, phone, class) " + "values (?, ?, ?, ?)"
 				+ "where not exists (select * from users where uid = ?";
 		
-		String json = DbHelper.executeUpdateJson(newUserQuery, new DbHelper.ParamType[]
-				{DbHelper.ParamType.STRING, DbHelper.ParamType.STRING, DbHelper.ParamType.STRING, 
-				DbHelper.ParamType.STRING,DbHelper.ParamType.STRING},
+		String json = DbHelper.executeUpdateJson(newUserQuery, 
+			new DbHelper.ParamType[] {DbHelper.ParamType.STRING, 
+					DbHelper.ParamType.STRING, 
+					DbHelper.ParamType.STRING, 
+					DbHelper.ParamType.INT, 
+					DbHelper.ParamType.STRING},
 				new String[] {userID, name, phoneNum, userType, userID});
 		
 		response.getWriter().print(json);
