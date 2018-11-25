@@ -48,11 +48,13 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
-		
+		System.out.println(userid);
+		System.out.println(password);
 		String query = "select password from password where uid = ?";
 		List<List<Object>> res = DbHelper.executeQueryList(query, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 				new Object[] {userid});
+		
 		
 		String dbPass = res.isEmpty()? null : (String)res.get(0).get(0);
 		if(dbPass != null && dbPass.equals(password)) {
