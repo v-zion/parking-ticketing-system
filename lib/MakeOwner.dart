@@ -2,40 +2,26 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
-import 'RegisterUser.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MakeOwner extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final appTitle = 'WhatAsap';
-
-    return MaterialApp(
-      title: appTitle,
-      home: LoginForm(),
-    );
-  }
+  MakeOwnerState createState() => new MakeOwnerState();
 }
 
-
-
-class LoginForm extends StatefulWidget {
-  @override
-  LoginFormState createState() => new LoginFormState();
-}
-
-class LoginFormState extends State<LoginForm> {
+class MakeOwnerState extends State<MakeOwner> {
   final _formKey = GlobalKey<FormState>();
-  final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
+  final uidController = new TextEditingController();
+
+
   final session = new Session();
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Login Page'),
+          title: new Text('Own a car'),
         ),
         body: new Builder(
           builder: (context) => new Form(
@@ -43,30 +29,35 @@ class LoginFormState extends State<LoginForm> {
             child: new Container(
                 child: new Column(
                   children: <Widget>[
+
                     new TextFormField(
                       decoration: new InputDecoration(
-                          labelText: 'Username'
+                          labelText: 'cid'
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Empty username not allowed';
+                          return 'Empty cid not allowed';
                         }
                       },
-                      controller: usernameController,
+                      controller: uidController,
                     ),
+
+
+
                     new TextFormField(
                       decoration: new InputDecoration(
                           labelText: 'Password'
                       ),
                       controller: passwordController,
                     ),
+
                     new RaisedButton(
                       onPressed: (){
                         if (_formKey.currentState.validate()){
                           Map<String, String> postData = new Map<String, String>();
-                          postData['userid'] = usernameController.text;
+                          postData['cid'] = uidController.text;
                           postData['password'] = passwordController.text;
-                          var postResponse = session.post(session.getURL() + 'LoginServlet', postData);
+                          var postResponse = session.post(session.getURL() + 'MakeOwner', postData);
                           //                        Scaffold.of(context).showSnackBar(
                           //                          new SnackBar(content: Text('Please wait'))
                           //                        );
@@ -80,7 +71,6 @@ class LoginFormState extends State<LoginForm> {
                               );
                             }
                             else{
-                              session.uid=postData['userid'];
                               Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
                             }
                           }).catchError((e) => print(e));
@@ -91,24 +81,19 @@ class LoginFormState extends State<LoginForm> {
                     ),
 
 
-                    new RaisedButton(
-                      onPressed: (){
-                        Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
-                      },
-                      child: Text('RegisterUser'),
-                    )
-
                   ],
                 )
             ),
           ),
-        )
+        ),
+
+        drawer: drawit(context)
     );
   }
 
   @override
   void dispose(){
-    usernameController.dispose();
+    uidController.dispose();
     passwordController.dispose();
     super.dispose();
   }
