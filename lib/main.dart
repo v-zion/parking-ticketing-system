@@ -3,6 +3,7 @@ import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
 import 'RegisterUser.dart';
+import 'map.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
-      home: LoginForm(),
+      home: MapPage(),
     );
   }
 }
