@@ -37,12 +37,24 @@ public class AutoCompleteUser extends HttpServlet {
 			return;
 		}
 		String substr = request.getParameter("term");
+		
+		Double latitude = Double.parseDouble(request.getParameter("latitude"));
+		Double longitude = Double.parseDouble(request.getParameter("longitude"));
+		
+		
+		
+		String query = "select pid as label, location as value, is_street from parking_mall where (pid ilike ? or name ilike ?) and "
+		+ "(latitude - ?)*(latitude - ?) + (longitude - ?)*(longitude - ?) < 25";
 
-		String query = "select pid as label, location as value from parking_mall where (pid like ? or location like ?)";
 
 		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
-				DbHelper.ParamType.STRING},
-				new String[] { substr + "%", substr + "%"});
+				DbHelper.ParamType.STRING,
+				DbHelper.ParamType.DOUBLE,
+				DbHelper.ParamType.DOUBLE,
+				DbHelper.ParamType.DOUBLE,
+				DbHelper.ParamType.DOUBLE,
+				},
+				new Object[] { substr + "%", substr + "%", latitude, latitude, longitude, longitude});
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsondata = objectMapper.readValue(json, ObjectNode.class);

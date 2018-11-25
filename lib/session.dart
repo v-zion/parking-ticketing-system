@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class Session {
 
-  static final String url="http://192.168.31.147:8080/pvc_servlets/";
+  static final String url="http://192.168.2.16:8080/pvc_servlets/";
 
   var uid="";
   static final Session _session = new Session._internal();

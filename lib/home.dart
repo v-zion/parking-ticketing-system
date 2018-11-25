@@ -8,6 +8,7 @@ import 'wallet.dart';
 import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
+import 'ParkStreet.dart';
 
 
 class SearchSite extends StatefulWidget{
@@ -134,6 +135,24 @@ Widget drawit(BuildContext context){
               MaterialPageRoute(builder: (context) => MakeOwner()),
             );
           },
+        ),
+
+        //////////////////
+
+        ListTile(
+          title: Text('Park on a street'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => ParkStreet()),
+            );
+          },
+
+          ///////////////////
+
         ),
 
 
