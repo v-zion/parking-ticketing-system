@@ -43,7 +43,7 @@ public class AutoCompleteUser extends HttpServlet {
 		
 		
 		
-		String query = "select pid as label, location as value, is_street from parking_mall where (pid ilike ? or name ilike ?) and "
+		String query = "select pid as label, name as value, is_street, latitude, longitude from parking_mall where (pid ilike ? or name ilike ?) and "
 		+ "(latitude - ?)*(latitude - ?) + (longitude - ?)*(longitude - ?) < 25";
 
 
