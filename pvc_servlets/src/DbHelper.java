@@ -225,6 +225,12 @@ public class DbHelper {
     	return node;
 	}
 	
+	public static ObjectNode createread(String read) {
+    	ObjectNode node = mapper.createObjectNode();
+    	node.put(DATA_LABEL, read);
+    	return node;
+	}
+	
 	/**
 	 * main() method for testing the functionality
 	 * of other methods defined in DbHelper.
