@@ -5,7 +5,8 @@ import 'dart:async';
 import 'home.dart';
 import 'dart:typed_data';
 import 'dart:ui';
-import 'dart:io';
+import 'session.dart';
+import 'notifications.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -20,6 +21,7 @@ class GenerateScreenState extends State<GenerateScreen> {
   static const double _topSectionTopPadding = 50.0;
   static const double _topSectionBottomPadding = 20.0;
   static const double _topSectionHeight = 50.0;
+  var session = new Session();
 
   GlobalKey globalKey = new GlobalKey();
   String _dataString = "QR Generator";
@@ -31,6 +33,17 @@ class GenerateScreenState extends State<GenerateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('QR Code Generator'),
+          actions: <Widget>[
+            new IconButton(
+                icon: session.bell,
+                onPressed: (){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Notifications()),
+                  );
+                }
+            )
+          ]
 //        actions: <Widget>[
 //          IconButton(
 //            icon: Icon(Icons.share),

@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'parkinfo.dart';
 import 'session.dart';
 import 'dart:convert';
+import 'notifications.dart';
+
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanState extends State<ScanScreen> {
   String barcode = "";
+  var session=new Session();
 
   @override
   initState() {
@@ -26,6 +29,17 @@ class _ScanState extends State<ScanScreen> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text('QR Code Scanner'),
+          actions: <Widget>[
+            new IconButton(
+                icon: session.bell,
+                onPressed: (){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Notifications()),
+                  );
+                }
+            )
+          ]
       ),
       body: new Center(
         child: new Column(

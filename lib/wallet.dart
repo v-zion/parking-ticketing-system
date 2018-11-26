@@ -5,6 +5,7 @@ import 'dart:async';
 import 'home.dart';
 import 'main.dart';
 import 'OwnersPage.dart';
+import 'notifications.dart';
 
 
 class MyWallet extends StatefulWidget{
@@ -24,6 +25,7 @@ class MyWalletPage extends State<MyWallet>{
   MyWalletPage(t){
     type=t;
   }
+  var session=new Session();
   @override
   void initState() {
     // TODO: implement initState
@@ -86,7 +88,18 @@ class MyWalletPage extends State<MyWallet>{
     if(outcome==null){
       return new Scaffold(
           appBar: new AppBar(
-              title: const Text('Loading')
+              title: const Text('Loading'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: new Center(
             child: new CircularProgressIndicator(),
@@ -100,6 +113,17 @@ class MyWalletPage extends State<MyWallet>{
       return new Scaffold(
           appBar: AppBar(
             title: const Text('My Wallet'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: new Column(
             children: <Widget>[

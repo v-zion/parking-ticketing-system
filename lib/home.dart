@@ -13,6 +13,7 @@ import 'map.dart';
 import 'qrScanner.dart';
 import 'qrGenerator.dart';
 import 'package:location/location.dart';
+import 'notifications.dart';
 
 class SearchSite extends StatefulWidget{
   @override
@@ -24,6 +25,7 @@ class SearchSite extends StatefulWidget{
 class MySearchPage extends State<SearchSite> {
   final String title="PVC";
   bool _loaded = false;
+  var session = new Session();
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -55,7 +57,18 @@ class MySearchPage extends State<SearchSite> {
     if (!_loaded){
       return new Scaffold(
         appBar: new AppBar(
-            title: const Text('Loading')
+            title: const Text('Loading'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: new Center(
           child: new CircularProgressIndicator(),
@@ -65,7 +78,20 @@ class MySearchPage extends State<SearchSite> {
     }
     else {
       return Scaffold(
-          appBar: AppBar(title: Text(title)),
+          appBar: AppBar(
+            title: Text(title),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
+          ),
           body: new Column(
             children: <Widget>[
 

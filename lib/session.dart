@@ -5,6 +5,7 @@
  */
 
 
+import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,7 @@ class Session {
   static double latitude = null;
   static double longitude = null;
   var uid="";
+  Widget bell=new Icon(Icons.notifications_none);
   bool notify;
   static final Session _session = new Session._internal();
   factory Session(){

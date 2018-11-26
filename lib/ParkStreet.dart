@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
-import 'RegisterUser.dart';
+import 'notifications.dart';
 
 
 
@@ -17,7 +17,7 @@ class ParkStreetState extends State<ParkStreet> {
   final parking_spot_no = new TextEditingController();
   final location_area = new TextEditingController();
   var cid;
-  final session = new Session();
+  var session = new Session();
 
 
 
@@ -35,6 +35,17 @@ class ParkStreetState extends State<ParkStreet> {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text('Park on a street'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: new Builder(
           builder: (context) => new Form(
