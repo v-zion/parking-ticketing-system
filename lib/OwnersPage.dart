@@ -154,7 +154,7 @@ class EntryState extends State<Entry>{
       List<ListTile> temp = <ListTile>[];
         for(var x in mytempParkingMalls)
         {
-          print(x.pid); 
+          print(x.pid);
           print(x.floor_number);
           print(x.total_space);
           print(x.free_space);

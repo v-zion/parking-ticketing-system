@@ -28,7 +28,7 @@ public class DeductMoney extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("het");	
-		String deduct = "with mytable(cid,uid,pid,coalesce(0,sum(price)))  as (select * from (select cid,uid,pid from payer natural join parks where "
+		String deduct = "with mytable(cid,uid,pid,price)  as (select cid,uid,pid,coalesce(0,sum(price)) from (select cid,uid,pid from payer natural join parks where "
 				+ "last_payed+interval '1' hour < now()) "
 				+ "as foo join (select pid, price from parking_mall) as bar using(pid) group by (cid,uid,pid))"
 				+ "update wallet w set amount = amount - (select price from mytable where uid = w.uid) where exists(select price from mytable where uid = w.uid)";

@@ -35,11 +35,11 @@ public class IfCarExist extends HttpServlet {
 			return;
 		}
 		String cid = (String) request.getParameter("cid");
-		String available_cars = "(select owns.cid from car where cid = ?)";
+		String available_cars = "(select cid from car where cid = ?)";
 		List<List<Object>> res = DbHelper.executeQueryList(available_cars, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 				new String[] {cid});
-		response.getWriter().print(res);
+//		response.getWriter().print(res);
 		String dbPass = res.isEmpty()? null : (String)res.get(0).get(0);
 		if(dbPass != null) {
 //			session.setAttribute("id", userid);
