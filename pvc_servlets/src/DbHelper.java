@@ -146,6 +146,7 @@ public class DbHelper {
 			}
 			else if(type.equals(ParamType.DOUBLE)) {
 				stmt.setDouble(i+1, (Double)param);
+//				System.out.println((Double)param);
 			}
 		}
 	}
