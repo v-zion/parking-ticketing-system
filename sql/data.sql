@@ -29,9 +29,10 @@ insert into wallet values('p7', '1000');
 insert into wallet values('p8', '1000');
 insert into wallet values('p9', '1000');
 
-insert into parking_mall values('pk1', 'ParkingMall1', 100.0);
-insert into parking_mall values('pk2', 'ParkingMall2', 80.0);
-insert into parking_mall values('pk3', 'ParkingMall3', 90.0);
+insert into parking_mall values('pk1', 19.0, 72.0, 100.0, 'ParkingMall1', '0');
+insert into parking_mall values('pk2', 19.9, 72.1, 80.0, 'ParkingMall2', '0');
+insert into parking_mall values('pk3', 19.5, 72.3, 90.0, 'ParkingMall3', '0');
+insert into parking_mall values('spk1', 18.7, 73.4, 30.0, 'AlbertWeinsemius', '1');
 
 insert into parking_floor values('pk1', '1', 50, 50);
 insert into parking_floor values('pk1', '2', 40, 39);
@@ -39,6 +40,7 @@ insert into parking_floor values('pk1', '3', 50, 50);
 insert into parking_floor values('pk2', '1', 60, 60);
 insert into parking_floor values('pk3', '1', 30, 29);
 insert into parking_floor values('pk3', '2', 20, 20);
+insert into parking_floor values('spk1', '1', 50, 50);
 
 insert into parks values('c3', 'pk1', '2');
 insert into parks values('c7', 'pk3', '1');

@@ -139,3 +139,24 @@
 2018-11-02 19:45:37.453 IST [28348] LOG:  worker process: logical replication launcher (PID 28356) exited with exit code 1
 2018-11-02 19:45:37.453 IST [28351] LOG:  shutting down
 2018-11-02 19:45:37.614 IST [28348] LOG:  database system is shut down
+2018-11-26 15:31:30.391 IST [327] LOG:  listening on IPv4 address "127.0.0.1", port 5450
+2018-11-26 15:31:30.457 IST [327] LOG:  listening on Unix socket "/home/eashan/postgresql/.s.PGSQL.5450"
+2018-11-26 15:31:30.692 IST [328] LOG:  database system was shut down at 2018-11-08 06:07:21 IST
+2018-11-26 15:31:30.908 IST [327] LOG:  database system is ready to accept connections
+2018-11-26 15:31:45.000 IST [348] ERROR:  syntax error at or near "user" at character 12
+2018-11-26 15:31:45.000 IST [348] STATEMENT:  drop table user
+	;
+2018-11-26 15:32:08.705 IST [348] ERROR:  syntax error at or near "password" at character 18
+2018-11-26 15:32:08.705 IST [348] STATEMENT:  drop table users password;
+2018-11-26 15:32:48.381 IST [348] ERROR:  cannot drop table parking_mall because other objects depend on it
+2018-11-26 15:32:48.381 IST [348] DETAIL:  constraint parking_floor_pid_fkey on table parking_floor depends on table parking_mall
+2018-11-26 15:32:48.381 IST [348] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2018-11-26 15:32:48.381 IST [348] STATEMENT:  drop table parking_mall ;
+2018-11-26 15:33:20.840 IST [348] ERROR:  table "parking_mall" does not exist
+2018-11-26 15:33:20.840 IST [348] STATEMENT:  drop table parking_mall cascade;
+2018-11-26 15:33:50.627 IST [348] ERROR:  table "users" does not exist
+2018-11-26 15:33:50.627 IST [348] STATEMENT:  drop table users cascade;
+2018-11-26 15:33:50.871 IST [348] ERROR:  table "parking_mall" does not exist
+2018-11-26 15:33:50.871 IST [348] STATEMENT:  drop table parking_mall cascade;
+2018-11-26 15:33:50.872 IST [348] ERROR:  table "parking_floor" does not exist
+2018-11-26 15:33:50.872 IST [348] STATEMENT:  drop table parking_floor cascade;

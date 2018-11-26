@@ -89,10 +89,11 @@ class MyWalletPage extends State<MyWallet>{
       print(amount);
       return new Scaffold(
           appBar: AppBar(
+            title: const Text('My Wallet'),
           ),
           body: new Column(
             children: <Widget>[
-              new Text(amount),
+              new Text(amount, style: TextStyle(fontSize: 60.0),),
               new Container(
                 margin: const EdgeInsets.all(10.0),//new
                 decoration: new BoxDecoration(

@@ -22,7 +22,8 @@ public class DbHelper {
 	
 	protected static enum ParamType{
 		STRING,
-		INT
+		INT,
+		DOUBLE
 	}
 	
 	/**
@@ -142,6 +143,10 @@ public class DbHelper {
 			}
 			else if(type.equals(ParamType.INT)) {
 				stmt.setInt(i+1, (Integer)param);
+			}
+			else if(type.equals(ParamType.DOUBLE)) {
+				stmt.setDouble(i+1, (Double)param);
+//				System.out.println((Double)param);
 			}
 		}
 	}

@@ -38,6 +38,7 @@ create table payer (
 	cid varchar(10) not null,
 	uid varchar(10) not null,
 	start_time timestamp not null default now(),
+	last_payed timestamp not null default now(),
 	foreign key (cid) references car on delete restrict,
 	foreign key (uid) references users on delete restrict,
 	primary key (cid)
@@ -45,8 +46,15 @@ create table payer (
 
 create table parking_mall (
 	pid varchar(10) primary key,
-	location varchar(20) not null,
-	price numeric(6,2) not null);
+	uid varchar(10),
+	latitude numeric(13,10) not null,
+	longitude numeric(13,10) not null,
+	price numeric(6,2) not null,
+	name varchar(20),
+	is_street varchar(2),
+	foreign key (uid) references users 
+		on delete cascade
+);
 
 create table parking_floor (
 	pid varchar(10),
@@ -56,6 +64,7 @@ create table parking_floor (
 	primary key (pid, floor_number),
 	foreign key (pid) references parking_mall
 		on delete cascade);
+
 
 create table parks (
 	cid varchar(10) not null,

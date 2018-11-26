@@ -111,7 +111,9 @@ class EntryState extends State<Entry>{
       key: PageStorageKey<Entry>(widget),
       title: Text(widget.cid),
       children: <ListTile>[
-        _imPaying ? ListTile(title: Text("Payer : You"),) : ListTile(title: Text("Payer : " + widget.name),
+        _imPaying ? ListTile(title: Text("Payer : You"),
+          trailing: RaisedButton(child: Text("EXIT"), onPressed: () => _exitPark(widget.cid)),
+        ) : ListTile(title: Text("Payer : " + widget.name),
           trailing: RaisedButton(child: Text("PAY"), onPressed: () => _changePayer(widget.cid)),),
         ListTile(title: Text("Location : " + widget.location)),
         ListTile(title: Text("Price : " + widget.price)),
@@ -150,6 +152,38 @@ class EntryState extends State<Entry>{
       else{
 
       }
+    });
+  }
+
+  void _exitPark(String cid){
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text("Are you sure"),
+        content: new Text("Do you really want to exit this car from parking?"),
+        actions: <Widget>[
+          FlatButton(onPressed: () => Navigator.pop(context), child: Text('No'),),
+          FlatButton(onPressed: () => _reallyExit(cid, context), child: Text('Yes'),),
+        ],
+      ),
+    );
+  }
+
+  void _reallyExit(String cid, BuildContext local_context){
+    Session session = new Session();
+    Map<String, String> postData = Map<String, String>();
+    postData['cid'] = cid;
+    var getResponse = session.post(Session.url + "ExitParking", postData);
+    getResponse.then((response) {
+      print(response);
+      Map<String, dynamic> jsonResponse = json.decode(response);
+//      if (jsonResponse['status']) {
+      Navigator.pop(local_context);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => VehicleListPage()));
+//      }
+//      else{
+
+//      }
     });
   }
 }

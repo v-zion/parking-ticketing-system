@@ -36,6 +36,7 @@ class MySearchPage extends State<SearchSite> {
       appBar: AppBar(title: Text(title)),
       body: new Column(
         children: <Widget>[
+          const Text('Search', style: TextStyle(fontSize: 40.0),),
           TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
                 autofocus: true,
@@ -79,7 +80,7 @@ Widget drawit(BuildContext context){
       padding: EdgeInsets.zero,
       children: <Widget>[
         DrawerHeader(
-          child: Text('Yo'),
+          child: Text('PVC'),
           decoration: BoxDecoration(
             color: Colors.blue,
           ),
@@ -120,19 +121,36 @@ Widget drawit(BuildContext context){
             );
           },
         ),
+        ListTile(
+          title: Text('Own a car'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MakeOwner()),
+            );
+          },
+        ),
 
-//        ListTile(
-//          title: Text('Own Car'),
-//          onTap: () {
-//            // Update the state of the app
-//            // ...
-//            // Then close the drawer
-//            Navigator.pushReplacement(
-//              context,
-//              MaterialPageRoute(builder: (context) => MakeOwner()),
-//            );
-//          },
-//        ),
+        //////////////////
+
+        ListTile(
+          title: Text('Park on a street'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => ParkStreet()),
+            );
+          },
+
+          ///////////////////
+
+        ),
 
 
         ListTile(

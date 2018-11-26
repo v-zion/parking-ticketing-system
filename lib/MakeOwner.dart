@@ -78,12 +78,15 @@ class MakeOwnerState extends State<MakeOwner> {
                         }
                       },
                       child: Text('Submit'),
-                    )
+                    ),
+
                   ],
                 )
             ),
           ),
-        )
+        ),
+
+        drawer: drawit(context)
     );
   }
 

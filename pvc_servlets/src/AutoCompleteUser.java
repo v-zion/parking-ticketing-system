@@ -32,18 +32,30 @@ public class AutoCompleteUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) { //not logged in
-			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
-			return;
-		}
+		// if(session.getAttribute("id") == null) { //not logged in
+//			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
+//			return;
+		// }
 		String substr = request.getParameter("term");
+		
+		Double latitude = Double.parseDouble(request.getParameter("latitude"));
+		Double longitude = Double.parseDouble(request.getParameter("longitude"));
+		System.out.println(latitude.toString() + " " + longitude.toString());
+		
+		
+		String query = "select pid as label, name as value, is_street, latitude, longitude from parking_mall where (pid ilike ? or name ilike ?) and "
+		+ "(latitude - ?)*(latitude - ?) + (longitude - ?)*(longitude - ?) < 25";
 
-		String query = "select pid as label, location as value from parking_mall where (pid like ? or location like ?)";
 
 		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
-				DbHelper.ParamType.STRING},
-				new String[] { substr + "%", substr + "%"});
-
+				DbHelper.ParamType.STRING,
+				DbHelper.ParamType.DOUBLE,
+				DbHelper.ParamType.DOUBLE,
+				DbHelper.ParamType.DOUBLE,
+				DbHelper.ParamType.DOUBLE,
+				},
+				new Object[] { substr + "%", substr + "%", latitude, latitude, longitude, longitude});
+		System.out.println(json);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsondata = objectMapper.readValue(json, ObjectNode.class);
 		response.getWriter().print(((ObjectNode) jsondata).get("data"));

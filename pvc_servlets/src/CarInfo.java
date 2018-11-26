@@ -34,10 +34,10 @@ public class CarInfo extends HttpServlet {
 			return;
 		}
 		String uid = (String) session.getAttribute("id");
-		String available_cars = "(select owns.cid from owns where uid = ?) except (select payer.cid from payer where uid = ?)";
+		String available_cars = "(select owns.cid from owns where uid = ?) except (select payer.cid from payer)";
 		String res = DbHelper.executeQueryJson(available_cars, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING, DbHelper.ParamType.STRING}, 
-				new String[] {uid, uid});
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
+				new String[] {uid});
 		response.getWriter().print(res);
 	}
 

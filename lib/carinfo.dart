@@ -66,8 +66,7 @@ class CarInfoAll extends State<CarInfo>{
       print(s);
       var temp=json.decode(s);
       if(temp["status"]){
-
-        Navigator.pop(local_context);
+        Navigator.pop(context);
         Navigator.pop(context);
         Navigator.pop(context);
         Navigator.pushReplacement(
