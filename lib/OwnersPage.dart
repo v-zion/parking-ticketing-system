@@ -8,6 +8,7 @@ import 'wallet.dart';
 import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
+import 'home.dart';
 
 class OwnersPage extends StatefulWidget{
   @override
@@ -16,57 +17,149 @@ class OwnersPage extends StatefulWidget{
   }
 }
 
-class MySearchPage extends State<Owners> {
-  final String title="PVC";
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+class OwnersPageState extends State<OwnersPage> {
 
-  _handleSubmitted(s){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ParkInfoAll(s)),
-    );
-  }
+  final session = new Session();
+  bool _loaded = false;
+  final List<Entry> _myParkingMalls = <Entry>[];
+  final List<tempEntry> _mytempParkingMalls = <tempEntry>[];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text(title)),
-        body: new Column(
-          children: <Widget>[
-            const Text('Search', style: TextStyle(fontSize: 40.0),),
-            TypeAheadField(
-              textFieldConfiguration: TextFieldConfiguration(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder()
-                  )
-              ),
-              suggestionsCallback: (pattern) async {
-                Session login = new Session();
-                return await login.get(login.getURL()+"AutoCompleteUser?term="+pattern).then((t){
-                  var p=json.decode(t);
-                  print(p);
-                  return p;
-                });
-              },
-              itemBuilder: (context, suggestion) {
-                return ListTile(
-                  title: Text(suggestion["label"]),
-                  subtitle: Text(suggestion["value"]),
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                _handleSubmitted(suggestion);
-              },
-            )
-          ],
-        ),
+    return buildWidget();
+  }
 
-        drawer: drawit(context)
+  Widget buildWidget(){
+    if (_loaded){
+      return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('My Parking Malls'),
+          ),
+          body: ListView.builder(
+            itemBuilder: (BuildContext context, int index){
+              print(index);
+              print(_myParkingMalls[index]);
+              return _myParkingMalls[index];
+            },
+            itemCount: _myParkingMalls.length,
+          ),
+          drawer: drawit(context),
+        ),
+      );
+    }
+    else{
+      return new Scaffold(
+        appBar: new AppBar(
+            title: const Text('Loading')
+        ),
+        body: new Center(
+          child: new CircularProgressIndicator(),
+        ),
+        drawer: drawit(context),
+      );
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    var getResponse = session.get(Session.url + 'ParkingMallsList');
+    getResponse.then((response) {
+      print(response);
+      Map<String, dynamic> jsonResponse = json.decode(response);
+      if (jsonResponse['status']) {
+        for (Map<String, dynamic> d in jsonResponse['data']){
+          _mytempParkingMalls.add(new tempEntry(d['pid'], d['uid'], d['latitude'], d['longitude'],
+              d['price'], d['name'], d['floor_number'], d['total_space'], d['free_space']));
+        }
+
+
+        var index=-1;
+        for (Map<String, dynamic> d in jsonResponse['data']){
+          if(!_myParkingMalls.isEmpty || d['pid']== _myParkingMalls[index].pid)
+            continue;
+          index =index+1;
+          _myParkingMalls.add(new Entry(d['pid'], d['uid'], d['latitude'], d['longitude'],
+              d['price'], d['name'], d['floor_number'], d['total_space'], d['free_space'], _mytempParkingMalls));
+        }
+
+        print(_myParkingMalls);
+        print(_myParkingMalls.length);
+        setState(() {
+          _loaded = true;
+        });
+      }
+      else{
+
+      }
+    });
+  }
+
+}
+
+class tempEntry{
+  tempEntry(this.pid, this.uid, this.latitude, this.longitude, this.price, this.name,
+      this.floor_number, this.total_space, this.free_space);
+
+  final String pid; // Parking ID
+  String uid; // Owner
+  final String latitude;
+  final String longitude;
+  final String price;
+  final String name;
+  final String floor_number;
+  final String total_space;
+  final String free_space;
+
+}
+
+
+class Entry extends StatefulWidget{
+  Entry(this.pid, this.uid, this.latitude, this.longitude, this.price, this.name,
+      this.floor_number, this.total_space, this.free_space, this.mytempParkingMalls);
+
+  final String pid; // Parking ID
+  String uid; // Owner
+  final String latitude;
+  final String longitude;
+  final String price;
+  final String name;
+  final String floor_number;
+  final String total_space;
+  final String free_space;
+  List<tempEntry> mytempParkingMalls;
+
+  EntryState createState() => new EntryState();
+}
+
+class EntryState extends State<Entry>{
+
+  @override
+  Widget build(BuildContext context){
+    Session session = new Session();
+
+    if (widget.uid == null) return ListTile(title: Text(widget.uid));
+    return ExpansionTile(
+      key: PageStorageKey<Entry>(widget),
+      title: Text(widget.name),
+      children: createlist(widget.price, widget.pid, widget.mytempParkingMalls),
     );
+  }
+
+  List<ListTile> createlist(price, pid , List<tempEntry> mytempParkingMalls){
+      List<ListTile> temp;
+        for(var x in mytempParkingMalls)
+        {
+          if(x.pid == pid)
+            {
+              temp.add(ListTile(title: Text("Floor number : " + x.floor_number),
+                  trailing: Text(x.free_space+ "/" + x.total_space)));
+            }
+        }
+        temp.add(ListTile(title: Text("Price : " + price)));
+        temp.add(ListTile(title: Text("Contact Eashan Gupta")));
+
   }
 }
 
@@ -85,57 +178,7 @@ Widget drawit(BuildContext context){
             color: Colors.blue,
           ),
         ),
-        ListTile(
-          title: Text('Passbook'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MyWallet()),
-            );
-          },
-        ),
-        ListTile(
-          title: Text('Search'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => SearchSite()),
-            );
-          },
-        ),
-        ListTile(
-          title: Text('My Vehicles'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => VehicleListPage()),
-            );
-          },
-        ),
-        ListTile(
-          title: Text('Own a car'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MakeOwner()),
-            );
-          },
-        ),
-
         //////////////////
-
 
         ListTile(
           title: Text('Logout'),

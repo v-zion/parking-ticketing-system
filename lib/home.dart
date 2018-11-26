@@ -8,6 +8,7 @@ import 'wallet.dart';
 import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
+import 'map.dart';
 
 class SearchSite extends StatefulWidget{
   @override
@@ -36,32 +37,36 @@ class MySearchPage extends State<SearchSite> {
       appBar: AppBar(title: Text(title)),
       body: new Column(
         children: <Widget>[
-          const Text('Search', style: TextStyle(fontSize: 40.0),),
-          TypeAheadField(
-            textFieldConfiguration: TextFieldConfiguration(
-                autofocus: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder()
-                )
+          new Expanded(child: const Text('Search', style: TextStyle(fontSize: 25.0),), flex: 1,),
+          new Expanded(
+            flex: 1,
+            child: TypeAheadField(
+              textFieldConfiguration: TextFieldConfiguration(
+                  autofocus: true,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder()
+                  )
+              ),
+              suggestionsCallback: (pattern) async {
+                Session login = new Session();
+                return await login.get(login.getURL()+"AutoCompleteUser?term="+pattern).then((t){
+                  var p=json.decode(t);
+                  print(p);
+                  return p;
+                });
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(suggestion["label"]),
+                  subtitle: Text(suggestion["value"]),
+                );
+              },
+              onSuggestionSelected: (suggestion) {
+                _handleSubmitted(suggestion);
+              },
             ),
-            suggestionsCallback: (pattern) async {
-              Session login = new Session();
-              return await login.get(login.getURL()+"AutoCompleteUser?term="+pattern).then((t){
-                var p=json.decode(t);
-                print(p);
-                return p;
-              });
-            },
-            itemBuilder: (context, suggestion) {
-              return ListTile(
-                title: Text(suggestion["label"]),
-                subtitle: Text(suggestion["value"]),
-              );
-            },
-            onSuggestionSelected: (suggestion) {
-              _handleSubmitted(suggestion);
-            },
-          )
+          ),
+          new MapPage(),
         ],
       ),
 

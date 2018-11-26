@@ -5,7 +5,7 @@ import 'home.dart';
 import 'RegisterUser.dart';
 import 'map.dart';
 import 'OwnersPage.dart';
-import 'PolicePage.dart';
+//import 'PolicePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -92,13 +92,13 @@ class LoginFormState extends State<LoginForm> {
                                           BuildContext context) => new OwnersPage()));
 
                               }
-                              else if(jsonResponse['data']['class']=='2')
-                              {
-                                Navigator.of(context).pushReplacement(
-                                    new MaterialPageRoute<void>(builder: (
-                                        BuildContext context) => new PolicePage()));
-
-                              }
+//                              else if(jsonResponse['data']['class']=='2')
+//                              {
+//                                Navigator.of(context).pushReplacement(
+//                                    new MaterialPageRoute<void>(builder: (
+//                                        BuildContext context) => new PolicePage()));
+//
+//                              }
                               else {
                                 Navigator.of(context).pushReplacement(
                                     new MaterialPageRoute<void>(builder: (
@@ -109,7 +109,7 @@ class LoginFormState extends State<LoginForm> {
 
                         }
                       },
-                      child: Text('Submit'),
+                      child: Text('Submit'),  
                     ),
 
 
