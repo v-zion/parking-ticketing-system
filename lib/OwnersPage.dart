@@ -77,8 +77,10 @@ class OwnersPageState extends State<OwnersPage> {
 
         var index=-1;
         for (Map<String, dynamic> d in jsonResponse['data']){
-          if(!_myParkingMalls.isEmpty || d['pid']== _myParkingMalls[index].pid)
+          if(!_myParkingMalls.isEmpty && d['pid']== _myParkingMalls[index].pid) {
+            print(index);
             continue;
+          }
           index =index+1;
           _myParkingMalls.add(new Entry(d['pid'], d['uid'], d['latitude'], d['longitude'],
               d['price'], d['name'], d['floor_number'], d['total_space'], d['free_space'], _mytempParkingMalls));
@@ -148,18 +150,23 @@ class EntryState extends State<Entry>{
   }
 
   List<ListTile> createlist(price, pid , List<tempEntry> mytempParkingMalls){
-      List<ListTile> temp;
+      print("hello");
+      List<ListTile> temp = <ListTile>[];
         for(var x in mytempParkingMalls)
         {
+          print(x.pid);
+          print(x.floor_number);
+          print(x.total_space);
+          print(x.free_space);
           if(x.pid == pid)
             {
-              temp.add(ListTile(title: Text("Floor number : " + x.floor_number),
+              temp.add(new ListTile(title: Text("Floor number : " + x.floor_number),
                   trailing: Text(x.free_space+ "/" + x.total_space)));
             }
         }
-        temp.add(ListTile(title: Text("Price : " + price)));
-        temp.add(ListTile(title: Text("Contact Eashan Gupta")));
-
+        temp.add(new ListTile(title: Text("Price : " + price)));
+        temp.add(new ListTile(title: Text("Contact Eashan Gupta")));
+        return temp;
   }
 }
 

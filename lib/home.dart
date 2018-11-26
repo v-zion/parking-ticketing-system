@@ -9,6 +9,7 @@ import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
 import 'map.dart';
+import 'package:location/location.dart';
 
 class SearchSite extends StatefulWidget{
   @override
@@ -19,9 +20,24 @@ class SearchSite extends StatefulWidget{
 
 class MySearchPage extends State<SearchSite> {
   final String title="PVC";
+  bool _loaded = false;
   void initState() {
     // TODO: implement initState
     super.initState();
+    getLocation().then((Map<String, double> l) {
+      print(l);
+      if (l != null) {
+        Session.latitude = l['latitude'];
+        Session.longitude = l['longitude'];
+        setState(() {
+          _loaded = true;
+        });
+      }
+      else{
+
+      }
+    });
+
   }
 
   _handleSubmitted(s){
@@ -33,45 +49,77 @@ class MySearchPage extends State<SearchSite> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: new Column(
-        children: <Widget>[
-          new Expanded(child: const Text('Search', style: TextStyle(fontSize: 25.0),), flex: 1,),
-          new Expanded(
-            flex: 1,
-            child: TypeAheadField(
-              textFieldConfiguration: TextFieldConfiguration(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder()
-                  )
-              ),
-              suggestionsCallback: (pattern) async {
-                Session login = new Session();
-                return await login.get(login.getURL()+"AutoCompleteUser?term="+pattern).then((t){
-                  var p=json.decode(t);
-                  print(p);
-                  return p;
-                });
-              },
-              itemBuilder: (context, suggestion) {
-                return ListTile(
-                  title: Text(suggestion["label"]),
-                  subtitle: Text(suggestion["value"]),
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                _handleSubmitted(suggestion);
-              },
-            ),
-          ),
-          new MapPage(),
-        ],
-      ),
+    if (!_loaded){
+      return new Scaffold(
+        appBar: new AppBar(
+            title: const Text('Loading')
+        ),
+        body: new Center(
+          child: new CircularProgressIndicator(),
+        ),
+        drawer: drawit(context),
+      );
+    }
+    else {
+      return Scaffold(
+          appBar: AppBar(title: Text(title)),
+          body: new Column(
+            children: <Widget>[
 
-      drawer: drawit(context)
-    );
+              Container(
+                padding: EdgeInsets.all(5.0),
+                child: TypeAheadField(
+                  textFieldConfiguration: TextFieldConfiguration(
+                    autofocus: false,
+                    //                  style: DefaultTextStyle.of(context).style.copyWith(
+                    //                      fontStyle: FontStyle.normal
+                    //                  ),
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Search'
+                    ),
+                  ),
+                  suggestionsCallback: (pattern) async {
+                    Session login = new Session();
+                    var response = await login.get(
+                        login.getURL() + "AutoCompleteUser?latitude=" + Session.latitude.toString()
+                            + "&longitude=" + Session.longitude.toString() + "&term=" + pattern);
+                    List<Map<String, dynamic> > res = <Map<String, dynamic> >[];
+                    for (var d in json.decode(response)['data']){
+                      res.add(d);
+                    }
+                    return res;
+
+                  },
+                  itemBuilder: (context, suggestion) {
+                    return ListTile(
+                      title: Text(suggestion["label"]),
+                      subtitle: Text(suggestion["value"]),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) {
+                    _handleSubmitted(suggestion);
+                  },
+                ),
+              ),
+              new MapPage(),
+            ],
+          ),
+
+          drawer: drawit(context)
+      );
+    }
+  }
+
+  Future<Map<String, double> > getLocation() async {
+    var currentLocation = <String, double>{};
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception{
+      currentLocation = null;
+    }
+    return currentLocation;
   }
 }
 

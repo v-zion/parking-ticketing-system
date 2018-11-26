@@ -85,7 +85,7 @@ class LoginFormState extends State<LoginForm> {
                             }
                             else{
                               session.uid=postData['userid'];
-                              if(jsonResponse['data']['class']=='1')
+                              if(jsonResponse['data'][0]['class']==1)
                               {
                                   Navigator.of(context).pushReplacement(
                                       new MaterialPageRoute<void>(builder: (
@@ -109,7 +109,7 @@ class LoginFormState extends State<LoginForm> {
 
                         }
                       },
-                      child: Text('Submit'),  
+                      child: Text('Submit'),
                     ),
 
 

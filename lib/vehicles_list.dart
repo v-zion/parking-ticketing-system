@@ -60,7 +60,7 @@ class VehicleListState extends State<VehicleListPage> {
       Map<String, dynamic> jsonResponse = json.decode(response);
       if (jsonResponse['status']) {
         for (Map<String, dynamic> d in jsonResponse['data']){
-          _myCars.add(new Entry(d['cid'], d['uid'], d['parking_name'], d['price'], d['start_time'], d['entry_time'], d['name']));
+          _myCars.add(new Entry(d['cid'], d['uid'], d['parking_name'], d['price'], d['start_time'], d['entry_time'], d['pname']));
         }
         print(_myCars);
         print(_myCars.length);

@@ -41,7 +41,8 @@ public class ParkingMallsList extends HttpServlet {
 		String uid = session.getAttribute("id").toString();
 				
 		
-		String query = "select * from users join (select * from parking_mall natural join parking_floor) as foo using (uid) where uid = ? order by pid";
+		String query = "select * from (select uid, name as uname from users) as bar "
+				+ "join (select * from parking_mall natural join parking_floor) as foo using (uid) where uid = ? order by pid";
 
 
 		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
