@@ -8,6 +8,7 @@ import 'wallet.dart';
 import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
+import 'notifications.dart';
 import 'map.dart';
 import 'qrScanner.dart';
 import 'qrGenerator.dart';
@@ -215,6 +216,18 @@ Widget drawit(BuildContext context){
 
         //////////////////
 
+        ListTile(
+          title: Text('Notifications'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Notifications()),
+            );
+          },
+        ),
 
         ListTile(
           title: Text('Logout'),

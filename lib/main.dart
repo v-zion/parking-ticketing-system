@@ -3,6 +3,7 @@ import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
 import 'RegisterUser.dart';
+import 'police.dart';
 import 'map.dart';
 import 'OwnersPage.dart';
 //import 'PolicePage.dart';
@@ -34,6 +35,7 @@ class LoginFormState extends State<LoginForm> {
   final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
   final session = new Session();
+  final oneSec = const Duration(seconds:1);
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +94,13 @@ class LoginFormState extends State<LoginForm> {
                                           BuildContext context) => new OwnersPage()));
 
                               }
-//                              else if(jsonResponse['data']['class']=='2')
-//                              {
-//                                Navigator.of(context).pushReplacement(
-//                                    new MaterialPageRoute<void>(builder: (
-//                                        BuildContext context) => new PolicePage()));
-//
-//                              }
+                              else if(jsonResponse['data'][0]['class']==2)
+                              {
+                                Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute<void>(builder: (
+                                        BuildContext context) => new PolicePage()));
+
+                              }
                               else {
                                 Navigator.of(context).pushReplacement(
                                     new MaterialPageRoute<void>(builder: (
@@ -115,7 +117,7 @@ class LoginFormState extends State<LoginForm> {
 
                     new RaisedButton(
                       onPressed: (){
-                        Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
+                        Navigator.of(context).push(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
                       },
                       child: Text('RegisterUser'),
                     )

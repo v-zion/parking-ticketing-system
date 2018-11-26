@@ -13,6 +13,7 @@ class Session {
   static double latitude = null;
   static double longitude = null;
   var uid="";
+  bool notify;
   static final Session _session = new Session._internal();
   factory Session(){
     return _session;

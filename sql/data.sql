@@ -13,6 +13,10 @@ insert into users values('o2', 'owner2', '9399', '1');
 insert into users values('o3', 'owner3', '2999', '1');
 insert into users values('i1', 'police1', '9999', '2');
 
+insert into users values('i1', 'inspector1', '2999', '2');
+insert into users values('i2', 'inspector2', '2999', '2');
+
+
 insert into car values ('c1', 'p');
 insert into car values ('c2', 'p');
 insert into car values ('c3', 'p');
@@ -79,5 +83,4 @@ insert into password values('o1', 'p');
 insert into password values('o2', 'p');
 insert into password values('o3', 'p');
 insert into password values('i1', 'p');
-
-
+insert into password values('i2', 'p');
