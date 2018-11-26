@@ -67,9 +67,9 @@ class CarInfoAll extends State<CarInfo>{
       print(s);
       var temp=json.decode(s);
       if(temp["status"]){
-        Navigator.pop(context);
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.pop(local_context);
+//        Navigator.pop(context);
+//        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => VehicleListPage()),

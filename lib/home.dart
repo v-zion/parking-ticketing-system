@@ -203,18 +203,18 @@ Widget drawit(BuildContext context){
             );
           },
         ),
-        ListTile(
-          title: Text('Generate QR Code'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => GenerateScreen()),
-            );
-          },
-        ),
+//        ListTile(
+//          title: Text('Generate QR Code'),
+//          onTap: () {
+//            // Update the state of the app
+//            // ...
+//            // Then close the drawer
+//            Navigator.pushReplacement(
+//              context,
+//              MaterialPageRoute(builder: (context) => GenerateScreen()),
+//            );
+//          },
+//        ),
         ListTile(
           title: Text('My Vehicles'),
           onTap: () {

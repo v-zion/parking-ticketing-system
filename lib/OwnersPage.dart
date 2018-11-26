@@ -9,6 +9,7 @@ import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
 import 'home.dart';
+import 'wallet.dart';
 
 class OwnersPage extends StatefulWidget{
   @override
