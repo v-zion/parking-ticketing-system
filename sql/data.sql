@@ -8,6 +8,9 @@ insert into users values('p7', 'person7', '9999', '0');
 insert into users values('p8', 'person8', '9999', '0');
 insert into users values('p9', 'person9', '9999', '0');
 
+insert into users values('o1', 'owner1', '9999', '1');
+insert into users values('o2', 'owner2', '9399', '1');
+insert into users values('o3', 'owner3', '2999', '1');
 
 insert into car values ('c1', 'p');
 insert into car values ('c2', 'p');
@@ -29,10 +32,10 @@ insert into wallet values('p7', '1000');
 insert into wallet values('p8', '1000');
 insert into wallet values('p9', '1000');
 
-insert into parking_mall values('pk1', 19.0, 72.0, 100.0, 'ParkingMall1', '0');
-insert into parking_mall values('pk2', 19.9, 72.1, 80.0, 'ParkingMall2', '0');
-insert into parking_mall values('pk3', 19.5, 72.3, 90.0, 'ParkingMall3', '0');
-insert into parking_mall values('spk1', 18.7, 73.4, 30.0, 'AlbertWeinsemius', '1');
+insert into parking_mall values('pk1', 'o1', 19.0, 72.0, 100.0, 'ParkingMall1', '0');
+insert into parking_mall values('pk2', 'o2', 19.9, 72.1, 80.0, 'ParkingMall2', '0');
+insert into parking_mall values('pk3', 'o3', 19.5, 72.3, 90.0, 'ParkingMall3', '0');
+insert into parking_mall values('spk1', null, 18.7, 73.4, 30.0, 'AlbertWeinsemius', '1');
 
 insert into parking_floor values('pk1', '1', 50, 50);
 insert into parking_floor values('pk1', '2', 40, 39);
@@ -70,3 +73,7 @@ insert into password values('p6', 'p');
 insert into password values('p7', 'p');
 insert into password values('p8', 'p');
 insert into password values('p9', 'p');
+
+insert into password values('o1', 'p');
+insert into password values('o2', 'p');
+insert into password values('o3', 'p');
