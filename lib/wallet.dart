@@ -3,17 +3,27 @@ import 'session.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'home.dart';
+import 'main.dart';
+import 'OwnersPage.dart';
 
 
 class MyWallet extends StatefulWidget{
+  var type;
+  MyWallet(t){
+    type=t;
+  }
   @override
   MyWalletPage createState() {
-    return MyWalletPage();
+    return MyWalletPage(type);
   }
 }
 
 class MyWalletPage extends State<MyWallet>{
   var outcome;
+  var type;
+  MyWalletPage(t){
+    type=t;
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -41,7 +51,7 @@ class MyWalletPage extends State<MyWallet>{
           print(s);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => MyWallet()),
+            MaterialPageRoute(builder: (context) => MyWallet(type)),
           );
         }
 
@@ -103,10 +113,81 @@ class MyWalletPage extends State<MyWallet>{
             ],
           ),
 
-          drawer: drawit(context)
+          drawer: type==0 ? drawit(context): drawfit(context)
       );
     }
 
+  }
+
+  Widget drawfit(BuildContext context){
+    return Drawer(
+      // Add a ListView to the drawer. This ensures the user can scroll
+      // through the options in the Drawer if there isn't enough vertical
+      // space to fit everything.
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('PVC'),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+
+          ListTile(
+            title: Text('Home'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => OwnersPage()),
+              );
+            },
+          ),
+
+
+          ListTile(
+            title: Text('Passbook'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyWallet(1)),
+              );
+            },
+          ),
+
+
+          //////////////////
+
+
+
+          ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Session login=new Session();
+              login.get(login.getURL()+"LogoutServlet").then((t){
+                var p=json.decode(t);
+                if(p["status"]){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginForm()),
+                  );
+                }
+              });
+            },
+          ),
+        ],
+      ),
+    );
   }
 
 }

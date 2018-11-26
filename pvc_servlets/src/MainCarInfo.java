@@ -32,7 +32,7 @@ public class MainCarInfo extends HttpServlet {
 
 		String p = "with owners(name,uid,ifparked,phone) as "
 				+ "((select users.name as name, users.uid as uid, 0,users.phone from owns natural join users where cid = ?) "
-				+ "except (select users.name,users.uid,0,users.phone from payer natural join users)), "
+				+ "except (select users.name,users.uid,0,users.phone from payer natural join users where cid = ?)), "
 				+ "paid(name,uid,ifparked,phone) as "
 				+ "(select users.name,users.uid,1, users.phone from users natural join payer where payer.cid=?) "
 				+ "select * from paid union select * from owners";
@@ -43,8 +43,8 @@ public class MainCarInfo extends HttpServlet {
 		}
 		String cid = (String) request.getParameter("cid");
 		String res = DbHelper.executeQueryJson(p, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,DbHelper.ParamType.STRING}, 
-				new String[] {cid,cid});
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,DbHelper.ParamType.STRING,DbHelper.ParamType.STRING}, 
+				new String[] {cid,cid,cid});
 	response.getWriter().print(res);
 	}
 

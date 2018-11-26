@@ -42,13 +42,14 @@ public class ChangePayer extends HttpServlet {
 		System.out.println(carid);
 		String query = 
 				"update payer "
-				+ "set uid=?, start_time = now() "
+				+ "set uid=?, start_time = now()"
 				+ "where cid=?";
 		String res = DbHelper.executeUpdateJson(query, 
 				new DbHelper.ParamType[] { 
 						DbHelper.ParamType.STRING,
 						DbHelper.ParamType.STRING}, 
 				new String[] {userid,carid});
+		
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);

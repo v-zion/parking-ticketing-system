@@ -149,7 +149,7 @@ Widget drawit(BuildContext context){
             // Then close the drawer
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MyWallet()),
+              MaterialPageRoute(builder: (context) => MyWallet(0)),
             );
           },
         ),

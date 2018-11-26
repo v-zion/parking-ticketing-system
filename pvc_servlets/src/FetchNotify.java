@@ -39,7 +39,7 @@ public class FetchNotify extends HttpServlet {
 		}
 		String uid = (String) session.getAttribute("id");
 		
-		String query = "select * from notifications where person_uid = ? order by time";
+		String query = "select * from notifications where person_uid = ? order by time desc";
 		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
 				},
 				new Object[] {uid});

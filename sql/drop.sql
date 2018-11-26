@@ -7,3 +7,4 @@ drop table payer cascade;
 drop table parking_mall cascade;
 drop table parking_floor cascade;
 drop table parks cascade;
+drop table notifications;

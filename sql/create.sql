@@ -38,7 +38,7 @@ create table payer (
 	cid varchar(10) not null,
 	uid varchar(10) not null,
 	start_time timestamp not null default now(),
-	last_payed timestamp not null default now(),
+	last_payed timestamp not null default now()+interval '-1' hour,
 	foreign key (cid) references car on delete restrict,
 	foreign key (uid) references users on delete restrict,
 	primary key (cid)
@@ -66,7 +66,7 @@ create table notifications(
 	read integer,
 	foreign key (person_uid) references users(uid),
 	foreign key (police_uid) references users(uid)
-)
+);
 
 create table parking_floor (
 	pid varchar(10),

@@ -44,7 +44,7 @@ class OwnersPageState extends State<OwnersPage> {
             },
             itemCount: _myParkingMalls.length,
           ),
-          drawer: drawit(context),
+          drawer: drawkit(context),
         ),
       );
     }
@@ -170,7 +170,7 @@ class EntryState extends State<Entry>{
   }
 }
 
-Widget drawit(BuildContext context){
+Widget drawkit(BuildContext context){
   return Drawer(
     // Add a ListView to the drawer. This ensures the user can scroll
     // through the options in the Drawer if there isn't enough vertical
@@ -186,6 +186,19 @@ Widget drawit(BuildContext context){
           ),
         ),
         //////////////////
+
+        ListTile(
+          title: Text('Passbook'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MyWallet(1)),
+            );
+          },
+        ),
 
         ListTile(
           title: Text('Logout'),
