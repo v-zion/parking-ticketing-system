@@ -3,10 +3,9 @@ import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
 import 'RegisterUser.dart';
-<<<<<<< HEAD
-=======
 import 'map.dart';
->>>>>>> f865702258463314d3f83aa8274d50335af30a42
+import 'OwnersPage.dart';
+import 'PolicePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,11 +16,8 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
-<<<<<<< HEAD
       home: LoginForm(),
-=======
-      home: MapPage(),
->>>>>>> f865702258463314d3f83aa8274d50335af30a42
+//      home: MapPage(),
     );
   }
 }
@@ -89,7 +85,25 @@ class LoginFormState extends State<LoginForm> {
                             }
                             else{
                               session.uid=postData['userid'];
-                              Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
+                              if(jsonResponse['data']['class']=='1')
+                              {
+                                  Navigator.of(context).pushReplacement(
+                                      new MaterialPageRoute<void>(builder: (
+                                          BuildContext context) => new OwnersPage()));
+
+                              }
+                              else if(jsonResponse['data']['class']=='2')
+                              {
+                                Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute<void>(builder: (
+                                        BuildContext context) => new PolicePage()));
+
+                              }
+                              else {
+                                Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute<void>(builder: (
+                                        BuildContext context) => new SearchSite()));
+                              }
                             }
                           }).catchError((e) => print(e));
 
