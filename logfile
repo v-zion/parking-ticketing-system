@@ -1,0 +1,141 @@
+2018-11-02 10:20:22.223 IST [4315] LOG:  listening on IPv4 address "127.0.0.1", port 5450
+2018-11-02 10:20:22.290 IST [4315] LOG:  listening on Unix socket "/home/eashan/postgresql/.s.PGSQL.5450"
+2018-11-02 10:20:22.546 IST [4316] LOG:  database system was shut down at 2018-11-01 04:11:56 IST
+2018-11-02 10:20:22.774 IST [4315] LOG:  database system is ready to accept connections
+2018-11-02 10:20:46.058 IST [4339] ERROR:  insert or update on table "payer" violates foreign key constraint "payer_cid_fkey"
+2018-11-02 10:20:46.058 IST [4339] DETAIL:  Key (cid)=(c1) is not present in table "users".
+2018-11-02 10:20:46.058 IST [4339] STATEMENT:  insert into payer values ('c1','p1');
+2018-11-02 10:20:46.059 IST [4339] ERROR:  insert or update on table "payer" violates foreign key constraint "payer_cid_fkey"
+2018-11-02 10:20:46.059 IST [4339] DETAIL:  Key (cid)=(c2) is not present in table "users".
+2018-11-02 10:20:46.059 IST [4339] STATEMENT:  insert into payer values ('c2','p1');
+2018-11-02 10:20:46.060 IST [4339] ERROR:  insert or update on table "payer" violates foreign key constraint "payer_cid_fkey"
+2018-11-02 10:20:46.060 IST [4339] DETAIL:  Key (cid)=(c4) is not present in table "users".
+2018-11-02 10:20:46.060 IST [4339] STATEMENT:  insert into payer values ('c4','p2');
+2018-11-02 10:22:24.737 IST [4339] ERROR:  syntax error at or near "all" at character 6
+2018-11-02 10:22:24.737 IST [4339] STATEMENT:  drop all;
+2018-11-02 11:12:10.153 IST [8740] ERROR:  syntax error at or near "=" at character 24
+2018-11-02 11:12:10.153 IST [8740] STATEMENT:  update walletset amount= amount+$1where uid=$2
+2018-11-02 11:22:28.641 IST [9413] ERROR:  syntax error at or near "=" at character 24
+2018-11-02 11:22:28.641 IST [9413] STATEMENT:  update walletset amount= amount+$1where uid=$2
+2018-11-02 13:05:02.944 IST [17965] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:05:02.944 IST [17965] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:05:02.944 IST [17965] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:08:14.766 IST [18241] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:08:14.766 IST [18241] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:08:14.766 IST [18241] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:15:39.622 IST [18553] ERROR:  duplicate key value violates unique constraint "users_pkey"
+2018-11-02 13:15:39.622 IST [18553] DETAIL:  Key (uid)=(p1) already exists.
+2018-11-02 13:15:39.622 IST [18553] STATEMENT:  insert into users values ($1,$2,$3,$4)
+2018-11-02 13:15:39.756 IST [18554] ERROR:  duplicate key value violates unique constraint "wallet_pkey"
+2018-11-02 13:15:39.756 IST [18554] DETAIL:  Key (uid)=(p1) already exists.
+2018-11-02 13:15:39.756 IST [18554] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:15:39.768 IST [18555] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:15:39.768 IST [18555] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:15:39.768 IST [18555] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:15:56.471 IST [18574] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:15:56.471 IST [18574] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:15:56.471 IST [18574] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:19:49.667 IST [19014] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:19:49.667 IST [19014] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:19:49.667 IST [19014] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:24:08.007 IST [19515] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:24:08.007 IST [19515] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:24:08.007 IST [19515] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:25:46.025 IST [19605] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:25:46.025 IST [19605] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:25:46.025 IST [19605] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:26:59.610 IST [19665] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:26:59.610 IST [19665] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:26:59.610 IST [19665] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:29:26.473 IST [19821] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:29:26.473 IST [19821] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:29:26.473 IST [19821] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:29:27.066 IST [19824] ERROR:  duplicate key value violates unique constraint "users_pkey"
+2018-11-02 13:29:27.066 IST [19824] DETAIL:  Key (uid)=(p10) already exists.
+2018-11-02 13:29:27.066 IST [19824] STATEMENT:  insert into users values ($1,$2,$3,$4)
+2018-11-02 13:29:27.081 IST [19825] ERROR:  duplicate key value violates unique constraint "wallet_pkey"
+2018-11-02 13:29:27.081 IST [19825] DETAIL:  Key (uid)=(p10) already exists.
+2018-11-02 13:29:27.081 IST [19825] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 13:29:27.089 IST [19826] ERROR:  column "amount" is of type numeric but expression is of type character varying at character 31
+2018-11-02 13:29:27.089 IST [19826] HINT:  You will need to rewrite or cast the expression.
+2018-11-02 13:29:27.089 IST [19826] STATEMENT:  insert into wallet values ($1,$2)
+2018-11-02 14:33:09.874 IST [23774] ERROR:  column "uid" does not exist at character 86
+2018-11-02 14:33:09.874 IST [23774] STATEMENT:  (select owns.cid from owns where uid = $1) except (select parks.cid from parks where uid = $2)
+2018-11-02 14:36:33.727 IST [23988] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:36:33.727 IST [23988] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:36:37.759 IST [23993] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:36:37.759 IST [23993] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:36:37.770 IST [23994] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:36:37.770 IST [23994] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:36:37.770 IST [23994] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:36:38.718 IST [23996] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:36:38.718 IST [23996] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:36:38.730 IST [23997] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:36:38.730 IST [23997] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:36:38.730 IST [23997] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:36:38.934 IST [24001] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:36:38.934 IST [24001] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:36:38.945 IST [24002] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:36:38.945 IST [24002] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:36:38.945 IST [24002] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:38:01.844 IST [24091] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:38:01.844 IST [24091] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:38:01.855 IST [24092] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:38:01.855 IST [24092] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:38:01.855 IST [24092] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:38:04.821 IST [24096] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:38:04.821 IST [24096] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:38:04.832 IST [24097] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:38:04.832 IST [24097] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:38:04.832 IST [24097] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:38:05.214 IST [24099] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:38:05.214 IST [24099] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:38:05.226 IST [24100] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:38:05.226 IST [24100] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:38:05.226 IST [24100] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:38:22.124 IST [24121] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:38:22.124 IST [24121] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:38:22.135 IST [24122] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:38:22.135 IST [24122] DETAIL:  Key (cid)=(c2) already exists.
+2018-11-02 14:38:22.135 IST [24122] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:38:29.277 IST [24127] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:38:29.277 IST [24127] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:39:47.924 IST [24224] ERROR:  syntax error at or near "=" at character 36
+2018-11-02 14:39:47.924 IST [24224] STATEMENT:  update parking_floorset free_space = free_space - 1where pid = $1 and floor_number = $2
+2018-11-02 14:39:47.935 IST [24225] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:39:47.935 IST [24225] DETAIL:  Key (cid)=(c1) already exists.
+2018-11-02 14:39:47.935 IST [24225] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:51:34.977 IST [23032] ERROR:  cannot drop table users because other objects depend on it
+2018-11-02 14:51:34.977 IST [23032] DETAIL:  constraint wallet_uid_fkey on table wallet depends on table users
+	constraint password_uid_fkey on table password depends on table users
+	constraint owns_uid_fkey on table owns depends on table users
+2018-11-02 14:51:34.977 IST [23032] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2018-11-02 14:51:34.977 IST [23032] STATEMENT:  drop table users;
+2018-11-02 14:51:53.172 IST [23032] ERROR:  table "users" does not exist
+2018-11-02 14:51:53.172 IST [23032] STATEMENT:  drop table users cascade;
+2018-11-02 14:58:28.562 IST [26233] ERROR:  duplicate key value violates unique constraint "parks_pkey"
+2018-11-02 14:58:28.562 IST [26233] DETAIL:  Key (cid)=(c4) already exists.
+2018-11-02 14:58:28.562 IST [26233] STATEMENT:  insert into parks values ($1, $2, $3)
+2018-11-02 14:58:28.598 IST [26235] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:58:28.598 IST [26235] DETAIL:  Key (cid)=(c4) already exists.
+2018-11-02 14:58:28.598 IST [26235] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 14:58:28.785 IST [26236] ERROR:  duplicate key value violates unique constraint "parks_pkey"
+2018-11-02 14:58:28.785 IST [26236] DETAIL:  Key (cid)=(c4) already exists.
+2018-11-02 14:58:28.785 IST [26236] STATEMENT:  insert into parks values ($1, $2, $3)
+2018-11-02 14:58:28.829 IST [26238] ERROR:  duplicate key value violates unique constraint "payer_pkey"
+2018-11-02 14:58:28.829 IST [26238] DETAIL:  Key (cid)=(c4) already exists.
+2018-11-02 14:58:28.829 IST [26238] STATEMENT:  insert into payer values($1, $2)
+2018-11-02 15:21:35.883 IST [4315] LOG:  received fast shutdown request
+2018-11-02 15:21:36.037 IST [4315] LOG:  aborting any active transactions
+2018-11-02 15:21:36.152 IST [4315] LOG:  worker process: logical replication launcher (PID 4322) exited with exit code 1
+2018-11-02 15:21:36.191 IST [4317] LOG:  shutting down
+2018-11-02 15:21:36.558 IST [4315] LOG:  database system is shut down
+2018-11-02 15:21:44.241 IST [28348] LOG:  listening on IPv4 address "127.0.0.1", port 5450
+2018-11-02 15:21:44.791 IST [28348] LOG:  listening on Unix socket "/home/eashan/postgresql/.s.PGSQL.5450"
+2018-11-02 15:21:45.180 IST [28350] LOG:  database system was shut down at 2018-11-02 15:21:36 IST
+2018-11-02 15:21:45.419 IST [28348] LOG:  database system is ready to accept connections
+2018-11-02 19:45:37.406 IST [28348] LOG:  received fast shutdown request
+2018-11-02 19:45:37.448 IST [28348] LOG:  aborting any active transactions
+2018-11-02 19:45:37.453 IST [28348] LOG:  worker process: logical replication launcher (PID 28356) exited with exit code 1
+2018-11-02 19:45:37.453 IST [28351] LOG:  shutting down
+2018-11-02 19:45:37.614 IST [28348] LOG:  database system is shut down

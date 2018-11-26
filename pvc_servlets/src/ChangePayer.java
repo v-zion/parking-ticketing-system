@@ -1,6 +1,8 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,20 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 /**
- * Servlet implementation class AutoCompleteUser
+ * Servlet implementation class ChangePayer
  */
-@WebServlet("/AutoCompleteUser")
-public class AutoCompleteUser extends HttpServlet {
+@WebServlet("/ChangePayer")
+public class ChangePayer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AutoCompleteUser() {
+    public ChangePayer() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,17 +35,23 @@ public class AutoCompleteUser extends HttpServlet {
 			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
 			return;
 		}
-		String substr = request.getParameter("term");
-
-		String query = "select pid as label, location as value from parking_mall where (pid like ? or location like ?)";
-
-		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
-				DbHelper.ParamType.STRING},
-				new String[] { substr + "%", substr + "%"});
-
-		ObjectMapper objectMapper = new ObjectMapper();
-		Object jsondata = objectMapper.readValue(json, ObjectNode.class);
-		response.getWriter().print(((ObjectNode) jsondata).get("data"));
+		
+		String userid = (String) session.getAttribute("id");
+		String carid = (String) request.getParameter("cid");
+		System.out.println(userid);
+		System.out.println(carid);
+		String query = 
+				"update payer "
+				+ "set uid=?, start_time = now() "
+				+ "where cid=?";
+		String res = DbHelper.executeUpdateJson(query, 
+				new DbHelper.ParamType[] { 
+						DbHelper.ParamType.STRING,
+						DbHelper.ParamType.STRING}, 
+				new String[] {userid,carid});
+		
+		PrintWriter out = response.getWriter();
+		out.print(res);
 	}
 
 	/**
@@ -55,6 +60,10 @@ public class AutoCompleteUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	public static void main(String[] args) throws ServletException, IOException {
+		new ChangePayer().doGet(null, null);
 	}
 
 }

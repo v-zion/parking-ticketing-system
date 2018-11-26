@@ -8,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 /**
- * Servlet implementation class AutoCompleteUser
+ * Servlet implementation class CarInfo
  */
-@WebServlet("/AutoCompleteUser")
-public class AutoCompleteUser extends HttpServlet {
+@WebServlet("/CarInfo")
+public class CarInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AutoCompleteUser() {
+    public CarInfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +29,16 @@ public class AutoCompleteUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) { //not logged in
+		if (session.getAttribute("id") == null) {
 			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
 			return;
 		}
-		String substr = request.getParameter("term");
-
-		String query = "select pid as label, location as value from parking_mall where (pid like ? or location like ?)";
-
-		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
-				DbHelper.ParamType.STRING},
-				new String[] { substr + "%", substr + "%"});
-
-		ObjectMapper objectMapper = new ObjectMapper();
-		Object jsondata = objectMapper.readValue(json, ObjectNode.class);
-		response.getWriter().print(((ObjectNode) jsondata).get("data"));
+		String uid = (String) session.getAttribute("id");
+		String available_cars = "(select owns.cid from owns where uid = ?) except (select payer.cid from payer where uid = ?)";
+		String res = DbHelper.executeQueryJson(available_cars, 
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING, DbHelper.ParamType.STRING}, 
+				new String[] {uid, uid});
+		response.getWriter().print(res);
 	}
 
 	/**
