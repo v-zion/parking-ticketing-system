@@ -68,17 +68,7 @@ public class MakeOwner extends HttpServlet {
 		}
 		else
 		{
-			JSONObject json = new JSONObject();
-			try {
-				json.put("status", "false");
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			String message = json.toString();
-			PrintWriter out = response.getWriter();
-			out.print(message);
-
+			response.getWriter().print(DbHelper.errorJson("This is not your car, u smarty pants :)").toString());
 		}
 	}
 

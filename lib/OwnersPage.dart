@@ -165,7 +165,7 @@ class EntryState extends State<Entry>{
             }
         }
         temp.add(new ListTile(title: Text("Price : " + price)));
-        temp.add(new ListTile(title: Text("Contact Eashan Gupta")));
+        temp.add(new ListTile(title: Text("In case of changes, contact Eashan Gupta @gupta.eashan@gmail.com")));
         return temp;
   }
 }

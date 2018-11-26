@@ -8,17 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 /**
- * Servlet implementation class MainCarInfo
+ * Servlet implementation class Notify
  */
-@WebServlet("/MainCarInfo")
-public class MainCarInfo extends HttpServlet {
+@WebServlet("/Notify")
+public class Notify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainCarInfo() {
+    public Notify() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,24 +31,26 @@ public class MainCarInfo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String p = "with owners(name,uid,ifparked,phone) as "
-				+ "((select users.name as name, users.uid as uid, 0,users.phone from owns natural join users where cid = ?) "
-				+ "except (select users.name,users.uid,0,users.phone from payer natural join users)), "
-				+ "paid(name,uid,ifparked,phone) as "
-				+ "(select users.name,users.uid,1, users.phone from users natural join payer where payer.cid=?) "
-				+ "select * from paid union select * from owners";
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
 			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
 			return;
 		}
 		String cid = (String) request.getParameter("cid");
-		String res = DbHelper.executeQueryJson(p, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,DbHelper.ParamType.STRING}, 
-				new String[] {cid,cid});
-		System.out.println(res);
-		response.getWriter().print(res);
+		String inspector_uid = (String) request.getParameter("inspector_uid");
+		
+		String query = "insert into notifications select uid,?,?,null,'1',now(),0 from owns where cid=?";
+
+
+		String json = DbHelper.executeUpdateJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
+				DbHelper.ParamType.STRING
+				},
+				new Object[] {inspector_uid, cid,cid});
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		Object jsondata = objectMapper.readValue(json, ObjectNode.class);
+		response.getWriter().print(((ObjectNode) jsondata));
+		
 	}
 
 	/**

@@ -56,6 +56,18 @@ create table parking_mall (
 		on delete cascade
 );
 
+create table notifications(
+	person_uid varchar(10),
+	police_uid varchar(10),
+	cid 	   varchar(10),
+	balance numeric(8,2),
+	type varchar(2),
+	time timestamp default now(),
+	read integer,
+	foreign key (person_uid) references users(uid),
+	foreign key (police_uid) references users(uid)
+)
+
 create table parking_floor (
 	pid varchar(10),
 	floor_number varchar(10),
