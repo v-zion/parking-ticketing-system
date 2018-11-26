@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
-import 'dart:async';
+import 'notifications.dart';
 import 'vehicles_list.dart';
 
 
@@ -20,6 +20,7 @@ class CarInfo extends StatefulWidget{
 class CarInfoAll extends State<CarInfo>{
   var s,f,outcome;
   var cars;
+  var session=new Session();
   CarInfoAll(st,ft){
     s=st;
     f=ft;
@@ -82,7 +83,18 @@ class CarInfoAll extends State<CarInfo>{
     if(outcome==null){
       return new Scaffold(
         appBar: new AppBar(
-            title: const Text('Select Car')
+            title: const Text('Select Car'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: new Center(
           child: new CircularProgressIndicator(),
@@ -92,7 +104,18 @@ class CarInfoAll extends State<CarInfo>{
     else {
       return new Scaffold(
         appBar: AppBar(
-            title: const Text('Select Car')
+            title: const Text('Select Car'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: Column(
           mainAxisSize: MainAxisSize.min,

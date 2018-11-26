@@ -33,6 +33,7 @@ class MyNotifications extends State<Notifications>{
       if(json.decode(q)["status"]) {
         setState(() {
 //        print(q);
+          login.bell=Icon(Icons.notifications_none);
           notifs = json.decode(q)['data'] as List;
           print(notifs);
           outcome = 1;

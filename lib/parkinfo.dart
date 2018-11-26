@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
-import 'dart:async';
+import 'notifications.dart';
 import 'carinfo.dart';
 
 
@@ -19,6 +19,7 @@ class ParkInfoAll extends StatefulWidget{
 class ParkInfo extends State<ParkInfoAll>{
   var s,outcome;
   var floors;
+  var session=new Session();
   ParkInfo(t){
     s=t;
   }
@@ -46,7 +47,18 @@ class ParkInfo extends State<ParkInfoAll>{
     if(outcome==null){
       return new Scaffold(
           appBar: new AppBar(
-              title: const Text('Loading')
+              title: const Text('Loading'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: new Center(
             child: new CircularProgressIndicator(),
@@ -56,7 +68,18 @@ class ParkInfo extends State<ParkInfoAll>{
     else {
       return new Scaffold(
           appBar: AppBar(
-              title: const Text('Select Floor')
+              title: const Text('Select Floor'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: Column(
             mainAxisSize: MainAxisSize.min,

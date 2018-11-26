@@ -3,6 +3,7 @@ import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
 import 'main.dart';
+import 'notifications.dart';
 
 
 class RegisterUser extends StatefulWidget {
@@ -19,7 +20,7 @@ class RegisterUserState extends State<RegisterUser> {
   final classController = new TextEditingController();
 
 
-  final session = new Session();
+  var session = new Session();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,17 @@ class RegisterUserState extends State<RegisterUser> {
         resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           title: new Text('Register User'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: new Builder(
           builder: (context) => new Column(

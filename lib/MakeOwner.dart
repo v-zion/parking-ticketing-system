@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
+import 'notifications.dart';
 
 
 class MakeOwner extends StatefulWidget {
@@ -15,7 +16,7 @@ class MakeOwnerState extends State<MakeOwner> {
   final uidController = new TextEditingController();
 
 
-  final session = new Session();
+  var session = new Session();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,17 @@ class MakeOwnerState extends State<MakeOwner> {
         resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           title: new Text('Own a car'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: new Builder(
           builder: (context) =>  new Column(

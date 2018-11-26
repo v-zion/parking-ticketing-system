@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
+import 'notifications.dart';
 
 class VehicleListPage extends StatefulWidget{
   @override
@@ -10,7 +11,7 @@ class VehicleListPage extends StatefulWidget{
 
 class VehicleListState extends State<VehicleListPage> {
 
-  final session = new Session();
+  var session = new Session();
   bool _loaded = false;
   final List<Entry> _myCars = <Entry>[];
 
@@ -25,6 +26,17 @@ class VehicleListState extends State<VehicleListPage> {
         home: Scaffold(
           appBar: AppBar(
             title: const Text('My Vehicles'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: ListView.builder(
             itemBuilder: (BuildContext context, int index){
@@ -41,7 +53,18 @@ class VehicleListState extends State<VehicleListPage> {
     else{
       return new Scaffold(
           appBar: new AppBar(
-              title: const Text('Loading')
+              title: const Text('Loading'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: new Center(
             child: new CircularProgressIndicator(),

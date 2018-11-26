@@ -4,7 +4,7 @@ import 'session.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'main.dart';
-import 'wallet.dart';
+import 'notifications.dart';
 import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
@@ -19,7 +19,7 @@ class OwnersPage extends StatefulWidget{
 
 class OwnersPageState extends State<OwnersPage> {
 
-  final session = new Session();
+  var session = new Session();
   bool _loaded = false;
   final List<Entry> _myParkingMalls = <Entry>[];
   final List<tempEntry> _mytempParkingMalls = <tempEntry>[];
@@ -35,6 +35,17 @@ class OwnersPageState extends State<OwnersPage> {
         home: Scaffold(
           appBar: AppBar(
             title: const Text('My Parking Malls'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: session.bell,
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                      );
+                    }
+                )
+              ]
           ),
           body: ListView.builder(
             itemBuilder: (BuildContext context, int index){
@@ -51,7 +62,18 @@ class OwnersPageState extends State<OwnersPage> {
     else{
       return new Scaffold(
         appBar: new AppBar(
-            title: const Text('Loading')
+            title: const Text('Loading'),
+            actions: <Widget>[
+              new IconButton(
+                  icon: session.bell,
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Notifications()),
+                    );
+                  }
+              )
+            ]
         ),
         body: new Center(
           child: new CircularProgressIndicator(),

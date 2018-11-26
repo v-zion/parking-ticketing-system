@@ -4,11 +4,29 @@ import 'dart:convert';
 import 'home.dart';
 import 'RegisterUser.dart';
 import 'police.dart';
-import 'map.dart';
+import 'dart:async';
 import 'OwnersPage.dart';
+import 'notifications.dart';
 //import 'PolicePage.dart';
 
-void main() => runApp(MyApp());
+final oneSec = const Duration(seconds:1);
+
+void main(){
+
+  new Timer.periodic(oneSec, (Timer t) => _checkUpdate(t));
+  runApp(MyApp());
+
+}
+void _checkUpdate(Timer t){
+  Session login=new Session();
+  login.get(login.getURL()+"CheckRead").then((p){
+    var q=json.decode(p);
+    if(q["data"]==0){
+      print(q);
+      login.bell=Icon(Icons.notifications_active);
+    }
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,13 +53,25 @@ class LoginFormState extends State<LoginForm> {
   final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
   final session = new Session();
-  final oneSec = const Duration(seconds:1);
+
+
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text('Login Page'),
+          actions: <Widget>[
+            new IconButton(
+                icon: session.bell,
+                onPressed: (){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Notifications()),
+                  );
+                }
+            )
+          ]
         ),
         body: new Builder(
           builder: (context) => new Form(
@@ -139,3 +169,4 @@ class LoginFormState extends State<LoginForm> {
 
 
 }
+
