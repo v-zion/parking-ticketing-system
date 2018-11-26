@@ -117,7 +117,7 @@ class MapPageState extends State<MapPage>{
             builder: (ctx) =>
             new Container(
               child: IconButton(
-                icon: Icon(Icons.circle),
+                icon: Icon(Icons.brightness_1),
                 color: Colors.blue,
                 iconSize: 25.0,
                 onPressed: () {
