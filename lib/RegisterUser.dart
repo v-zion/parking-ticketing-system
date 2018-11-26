@@ -24,112 +24,120 @@ class RegisterUserState extends State<RegisterUser> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           title: new Text('Register User'),
         ),
         body: new Builder(
-          builder: (context) => new Form(
-            key: _formKey,
-            child: new Container(
-                child: new Column(
-                  children: <Widget>[
+          builder: (context) => new Column(
+            children: <Widget>[
+              new Expanded(
+                child: new Form(
+                  key: _formKey,
+                  child: new Container(
+                      child: new Column(
+                        children: <Widget>[
 
-                    new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'uid'
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Empty uid not allowed';
-                        }
-                      },
-                      controller: uidController,
-                    ),
+                          new TextFormField(
+                            decoration: new InputDecoration(
+                                labelText: 'uid'
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Empty uid not allowed';
+                              }
+                            },
+                            controller: uidController,
+                          ),
 
-                    new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Username'
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Empty username not allowed';
-                        }
-                      },
-                      controller: usernameController,
-                    ),
+                          new TextFormField(
+                            decoration: new InputDecoration(
+                                labelText: 'Username'
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Empty username not allowed';
+                              }
+                            },
+                            controller: usernameController,
+                          ),
 
-                    new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Phone'
-                      ),
-                      controller: phoneController,
-                    ),
+                          new TextFormField(
+                            decoration: new InputDecoration(
+                                labelText: 'Phone'
+                            ),
+                            controller: phoneController,
+                          ),
 
-                    new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Class'
-                      ),
-                      controller: classController,
-                    ),
-
-
-                    new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Password'
-                      ),
-                      controller: passwordController,
-                    ),
-
-                    new RaisedButton(
-                      onPressed: (){
-                        if (_formKey.currentState.validate()){
-                          Map<String, String> postData = new Map<String, String>();
-                          postData['uid'] = uidController.text;
-                          postData['name']=usernameController.text;
-                          postData['password'] = passwordController.text;
-                          postData['phone']= phoneController.text;
-                          postData['class']=classController.text;
-                          var postResponse = session.post(session.getURL() + 'RegisterUser', postData);
-                          postResponse.then((response) {
-                            Map<String, dynamic> jsonResponse = json.decode(response);
-                            if (!jsonResponse['status']) {
-                              Scaffold.of(context).showSnackBar(
-                                  new SnackBar(
-                                      content: Text(jsonResponse['message'])
-                                  )
-                              );
-                            }
+                          new TextFormField(
+                            decoration: new InputDecoration(
+                                labelText: 'Class'
+                            ),
+                            controller: classController,
+                          ),
 
 
-                            else{
+                          new TextFormField(
+                            decoration: new InputDecoration(
+                                labelText: 'Password'
+                            ),
+                            controller: passwordController,
+                          ),
 
-                              Map<String, String> myData = new Map<String, String>();
-                              myData['userid'] = postData['uid'];
-                              myData['password'] = postData['password'];
+                          new RaisedButton(
+                            onPressed: (){
+                              if (_formKey.currentState.validate()){
+                                Map<String, String> postData = new Map<String, String>();
+                                postData['uid'] = uidController.text;
+                                postData['name']=usernameController.text;
+                                postData['password'] = passwordController.text;
+                                postData['phone']= phoneController.text;
+                                postData['class']=classController.text;
+                                var postResponse = session.post(session.getURL() + 'RegisterUser', postData);
+                                postResponse.then((response) {
+                                  print(response);
+                                  Map<String, dynamic> jsonResponse = json.decode(response);
+                                  if (!jsonResponse['status']) {
+                                    Scaffold.of(context).showSnackBar(
+                                        new SnackBar(
+                                            content: Text(jsonResponse['message'])
+                                        )
+                                    );
+                                  }
 
-                              var myResponse = session.post(session.getURL() + 'LoginServlet', myData);
 
-                              myResponse.then((response) {
-                                Map<String, dynamic> jsonResponse = json.decode(response);
-                                print(response);
-                                if (!jsonResponse['status']) {
-                                  Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new LoginForm()));
-                                }
-                                else{
-                                  session.uid=postData['userid'];
-                                  Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
-                                }
-                              });
-                            }
-                          }).catchError((e) => print(e));
+                                  else{
 
-                        }
-                      },
-                      child: Text('Submit'),
-                    )
-                  ],
-                )
-            ),
+                                    Map<String, String> myData = new Map<String, String>();
+                                    myData['userid'] = postData['uid'];
+                                    myData['password'] = postData['password'];
+
+                                    var myResponse = session.post(session.getURL() + 'LoginServlet', myData);
+
+                                    myResponse.then((response) {
+                                      Map<String, dynamic> jsonResponse = json.decode(response);
+                                      print(response);
+                                      if (!jsonResponse['status']) {
+                                        Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new LoginForm()));
+                                      }
+                                      else{
+                                        session.uid=postData['userid'];
+                                        Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
+                                      }
+                                    });
+                                  }
+                                }).catchError((e) => print(e));
+
+                              }
+                            },
+                            child: Text('Submit'),
+                          )
+                        ],
+                      )
+                  ),
+                ),
+              ),
+            ],
           ),
         )
     );

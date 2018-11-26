@@ -60,7 +60,7 @@ class VehicleListState extends State<VehicleListPage> {
       Map<String, dynamic> jsonResponse = json.decode(response);
       if (jsonResponse['status']) {
         for (Map<String, dynamic> d in jsonResponse['data']){
-          _myCars.add(new Entry(d['cid'], d['uid'], d['location'], d['price'], d['start_time'], d['entry_time'], d['name']));
+          _myCars.add(new Entry(d['cid'], d['uid'], d['parking_name'], d['price'], d['start_time'], d['entry_time'], d['pname']));
         }
         print(_myCars);
         print(_myCars.length);
@@ -77,11 +77,11 @@ class VehicleListState extends State<VehicleListPage> {
 }
 
 class Entry extends StatefulWidget{
-  Entry(this.cid, this.uid, this.location, this.price, this.startTime, this.entryTime, this.name);
+  Entry(this.cid, this.uid, this.parking_name, this.price, this.startTime, this.entryTime, this.name);
 
   final String cid; // Car ID
   String uid; // Payer
-  final String location;
+  final String parking_name;
   final String price;
   final String startTime;
   final String entryTime;
@@ -96,7 +96,7 @@ class EntryState extends State<Entry>{
 
   @override
   Widget build(BuildContext context){
-    print(widget.location);
+    print(widget.parking_name);
     Session session = new Session();
     if (widget.uid == session.uid){
       _imPaying = true;
@@ -115,7 +115,7 @@ class EntryState extends State<Entry>{
           trailing: RaisedButton(child: Text("EXIT"), onPressed: () => _exitPark(widget.cid)),
         ) : ListTile(title: Text("Payer : " + widget.name),
           trailing: RaisedButton(child: Text("PAY"), onPressed: () => _changePayer(widget.cid)),),
-        ListTile(title: Text("Location : " + widget.location)),
+        ListTile(title: Text("Parking name : " + widget.parking_name)),
         ListTile(title: Text("Price : " + widget.price)),
         ListTile(title: Text("Parked from : " + widget.entryTime)),
       ],

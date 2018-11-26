@@ -5,6 +5,9 @@ import 'home.dart';
 import 'RegisterUser.dart';
 import 'police.dart';
 import 'map.dart';
+import 'OwnersPage.dart';
+//import 'PolicePage.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -84,16 +87,25 @@ class LoginFormState extends State<LoginForm> {
                             }
                             else{
                               session.uid=postData['userid'];
-//                              if(jsonResponse['data']['class']=='1'){
-//                                Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new OwnerPage()));
-//                              }
-                              if(jsonResponse['data'][0]['class']==2){
-                                Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new PolicePage()));
-                              }
-                              else{
-                                Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
-                              }
+                              if(jsonResponse['data'][0]['class']==1)
+                              {
+                                  Navigator.of(context).pushReplacement(
+                                      new MaterialPageRoute<void>(builder: (
+                                          BuildContext context) => new OwnersPage()));
 
+                              }
+                              else if(jsonResponse['data']['class']=='2')
+                              {
+                                Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute<void>(builder: (
+                                        BuildContext context) => new PolicePage()));
+
+                              }
+                              else {
+                                Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute<void>(builder: (
+                                        BuildContext context) => new SearchSite()));
+                              }
                             }
                           }).catchError((e) => print(e));
 
@@ -105,7 +117,7 @@ class LoginFormState extends State<LoginForm> {
 
                     new RaisedButton(
                       onPressed: (){
-                        Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
+                        Navigator.of(context).push(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
                       },
                       child: Text('RegisterUser'),
                     )

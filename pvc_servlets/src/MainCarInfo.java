@@ -29,12 +29,13 @@ public class MainCarInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String p = "with owners(name,uid,ifparked) as "
-				+ "(select users.name as name, users.uid as uid, 0 from owns natural join users where cid = ? "
-				+ "except (select users.name,users.uid,0 from payer natural join users)), "
-				+ "paid(name,uid,ifparked) as "
-				+ "(select users.name,users.uid,1 from users natural join payer where payer.cid=?) "
-				+ "select * from paid union owners";
+
+		String p = "with owners(name,uid,ifparked,phone) as "
+				+ "((select users.name as name, users.uid as uid, 0,users.phone from owns natural join users where cid = ?) "
+				+ "except (select users.name,users.uid,0,users.phone from payer natural join users)), "
+				+ "paid(name,uid,ifparked,phone) as "
+				+ "(select users.name,users.uid,1, users.phone from users natural join payer where payer.cid=?) "
+				+ "select * from paid union select * from owners";
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
 			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
@@ -44,7 +45,7 @@ public class MainCarInfo extends HttpServlet {
 		String res = DbHelper.executeQueryJson(p, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,DbHelper.ParamType.STRING}, 
 				new String[] {cid,cid});
-		response.getWriter().print(res);
+	response.getWriter().print(res);
 	}
 
 	/**

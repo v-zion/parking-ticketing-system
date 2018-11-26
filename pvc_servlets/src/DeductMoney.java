@@ -28,10 +28,23 @@ public class DeductMoney extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("het");	
-		String deduct = "update wallet w set amount= amount- 50* (select count(*) from payer where payer.uid= w.uid and payer.last_payed+interval '1' hour < now())";
+		String deduct = "with mytable(uid,price)  as (select uid,coalesce(0,sum(price)) from (select cid,uid,pid from payer natural join parks where "
+				+ "last_payed+interval '1' hour < now()) "
+				+ "as foo join (select pid, price from parking_mall) as bar using(pid) group by uid)"
+				+ "update wallet w set amount = amount - (select price from mytable where uid = w.uid) where exists(select price from mytable where uid = w.uid)";
+		
+		String payerUpdate= "update payer set last_played = last_payed+interval '1' hour where payer.last_payed+interval '1' hour < now()";
 		String res = DbHelper.executeUpdateJson(deduct, 
 					new DbHelper.ParamType[] {}, 
-					new String[] {});			
+					new String[] {});
+		String res1 = DbHelper.executeUpdateJson(payerUpdate, 
+				new DbHelper.ParamType[] {}, 
+				new String[] {});
+		
+		String querynotify = "insert into notifications select uid,null,null,amount,'2',now(),0 from users natural join wallet where amount<100";
+		String res2 = DbHelper.executeUpdateJson(querynotify, 
+				new DbHelper.ParamType[] {}, 
+				new String[] {});
 	}
 
 }

@@ -12,16 +12,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
- * Servlet implementation class AutoCompleteUser
+ * Servlet implementation class Notify
  */
-@WebServlet("/AutoCompleteUser")
-public class AutoCompleteUser extends HttpServlet {
+@WebServlet("/Notify")
+public class Notify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AutoCompleteUser() {
+    public Notify() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,33 +32,25 @@ public class AutoCompleteUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) { //not logged in
+		if (session.getAttribute("id") == null) {
 			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
 			return;
 		}
-		String substr = request.getParameter("term");
+		String cid = (String) request.getParameter("cid");
+		String inspector_uid = (String) request.getParameter("inspector_uid");
 		
-		Double latitude = Double.parseDouble(request.getParameter("latitude"));
-		Double longitude = Double.parseDouble(request.getParameter("longitude"));
-		
-		
-		
-		String query = "select pid as label, name as value, is_street, latitude, longitude from parking_mall where (pid ilike ? or name ilike ?) and "
-		+ "(latitude - ?)*(latitude - ?) + (longitude - ?)*(longitude - ?) < 25";
+		String query = "insert into notifications select uid,?,?,null,'1',now(),0 from owns where cid=?";
 
 
-		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
-				DbHelper.ParamType.STRING,
-				DbHelper.ParamType.DOUBLE,
-				DbHelper.ParamType.DOUBLE,
-				DbHelper.ParamType.DOUBLE,
-				DbHelper.ParamType.DOUBLE,
+		String json = DbHelper.executeUpdateJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
+				DbHelper.ParamType.STRING
 				},
-				new Object[] { substr + "%", substr + "%", latitude, latitude, longitude, longitude});
+				new Object[] {inspector_uid, cid,cid});
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsondata = objectMapper.readValue(json, ObjectNode.class);
 		response.getWriter().print(((ObjectNode) jsondata));
+		
 	}
 
 	/**

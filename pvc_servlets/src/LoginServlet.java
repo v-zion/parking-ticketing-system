@@ -52,6 +52,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(userid);
 		System.out.println(password);
 		String query = "select password from password where uid = ?";
+		String query1 = "select class from users where uid = ?";
 		List<List<Object>> res = DbHelper.executeQueryList(query, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 				new Object[] {userid});
@@ -60,7 +61,11 @@ public class LoginServlet extends HttpServlet {
 		String dbPass = res.isEmpty()? null : (String)res.get(0).get(0);
 		if(dbPass != null && dbPass.equals(password)) {
 			session.setAttribute("id", userid);
-			response.getWriter().print(DbHelper.okJson().toString());
+			String temp = DbHelper.executeQueryJson(query1, 
+					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
+					new Object[] {userid});
+			System.out.println(temp);
+			response.getWriter().print(temp);
 		}
 		else {
 			response.getWriter().print(DbHelper.errorJson("Username/password incorrect").toString());
