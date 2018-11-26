@@ -57,7 +57,7 @@ class _ScanState extends State<ScanScreen> {
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() => this.barcode = barcode);
-      Map<String, dynamic> s;
+      Map<String, dynamic> s = <String, dynamic>{};
       s['label'] = barcode;
       print(barcode);
       Navigator.push(context, MaterialPageRoute(builder: (context) => ParkInfoAll(s)));
