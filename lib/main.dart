@@ -3,6 +3,7 @@ import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
 import 'RegisterUser.dart';
+import 'police.dart';
 import 'map.dart';
 void main() => runApp(MyApp());
 
@@ -31,6 +32,7 @@ class LoginFormState extends State<LoginForm> {
   final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
   final session = new Session();
+  final oneSec = const Duration(seconds:1);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,16 @@ class LoginFormState extends State<LoginForm> {
                             }
                             else{
                               session.uid=postData['userid'];
-                              Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
+//                              if(jsonResponse['data']['class']=='1'){
+//                                Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new OwnerPage()));
+//                              }
+                              if(jsonResponse['data'][0]['class']==2){
+                                Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new PolicePage()));
+                              }
+                              else{
+                                Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new SearchSite()));
+                              }
+
                             }
                           }).catchError((e) => print(e));
 
