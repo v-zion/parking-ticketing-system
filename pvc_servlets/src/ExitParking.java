@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,8 +38,10 @@ public class ExitParking extends HttpServlet {
 		}
 		String uid = (String) session.getAttribute("id");
 		String cid = (String) request.getParameter("cid");
-		String pid = (String) request.getParameter("pid");
-		String floor = (String) request.getParameter("floor");
+		String findQuery = "select pid, floor_number from parks where cid = ?";
+		List<List<Object>> fqres = DbHelper.executeQueryList(findQuery, new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, new String[] {cid});
+		String pid = (String)fqres.get(0).get(0);
+		String floor = (String)fqres.get(0).get(1);
 		String park = "delete from parks where cid=? and pid=? and floor_number=?";
 		String reduce = "update parking_floor "
 				+ "set free_space = free_space + 1 "
