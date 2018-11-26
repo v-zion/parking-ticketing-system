@@ -94,7 +94,7 @@ class LoginFormState extends State<LoginForm> {
                                           BuildContext context) => new OwnersPage()));
 
                               }
-                              else if(jsonResponse['data']['class']=='2')
+                              else if(jsonResponse['data'][0]['class']==2)
                               {
                                 Navigator.of(context).pushReplacement(
                                     new MaterialPageRoute<void>(builder: (
