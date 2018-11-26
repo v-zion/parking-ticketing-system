@@ -115,7 +115,7 @@ class LoginFormState extends State<LoginForm> {
 
                     new RaisedButton(
                       onPressed: (){
-                        Navigator.of(context).pushReplacement(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
+                        Navigator.of(context).push(new MaterialPageRoute<void>(builder: (BuildContext context) => new RegisterUser()));
                       },
                       child: Text('RegisterUser'),
                     )

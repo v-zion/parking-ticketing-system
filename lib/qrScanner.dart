@@ -5,6 +5,8 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'parkinfo.dart';
+import 'session.dart';
+import 'dart:convert';
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -57,9 +59,20 @@ class _ScanState extends State<ScanScreen> {
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() => this.barcode = barcode);
-      Map<String, dynamic> s = <String, dynamic>{};
-      s['label'] = barcode;
       print(barcode);
+      Session session = new Session();
+      var response = await session.get(Session.url + "AutoCompleteUser?latitude=" + Session.latitude.toString() +
+          "&longitude=" + Session.longitude.toString() + "&term=" + barcode);
+      Map<String, dynamic> jsonResponse = json.decode(response);
+      print(jsonResponse);
+      Map<String, dynamic> s = <String, dynamic>{};
+      if (jsonResponse['status']){
+        for (var d in jsonResponse['data']){
+          if (d['label'] == barcode){
+            s = d;
+          }
+        }
+      }
       Navigator.push(context, MaterialPageRoute(builder: (context) => ParkInfoAll(s)));
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
