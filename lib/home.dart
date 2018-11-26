@@ -9,6 +9,8 @@ import 'vehicles_list.dart';
 import 'parkinfo.dart';
 import 'MakeOwner.dart';
 import 'map.dart';
+import 'qrScanner.dart';
+import 'qrGenerator.dart';
 import 'package:location/location.dart';
 
 class SearchSite extends StatefulWidget{
@@ -158,6 +160,30 @@ Widget drawit(BuildContext context){
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => SearchSite()),
+            );
+          },
+        ),
+        ListTile(
+          title: Text('Scan QR Code'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => ScanScreen()),
+            );
+          },
+        ),
+        ListTile(
+          title: Text('Generate QR Code'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => GenerateScreen()),
             );
           },
         ),
