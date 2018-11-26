@@ -136,21 +136,6 @@ Widget drawit(BuildContext context){
 
         //////////////////
 
-        ListTile(
-          title: Text('Park on a street'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => ParkStreet()),
-            );
-          },
-
-          ///////////////////
-
-        ),
 
 
         ListTile(

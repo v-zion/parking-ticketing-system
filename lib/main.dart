@@ -3,11 +3,7 @@ import 'session.dart';
 import 'dart:convert';
 import 'home.dart';
 import 'RegisterUser.dart';
-<<<<<<< HEAD
-=======
 import 'map.dart';
->>>>>>> f865702258463314d3f83aa8274d50335af30a42
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -17,11 +13,8 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
-<<<<<<< HEAD
       home: LoginForm(),
-=======
-      home: MapPage(),
->>>>>>> f865702258463314d3f83aa8274d50335af30a42
+//      home: MapPage(),
     );
   }
 }
