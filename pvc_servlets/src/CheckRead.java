@@ -38,7 +38,7 @@ public class CheckRead extends HttpServlet {
 
 		String uid = (String) session.getAttribute("id");
 		
-		String query = "select * from notifications where uid = ? and read = 0";
+		String query = "select * from notifications where person_uid = ? and read = 0";
 		List<List<Object>> res = DbHelper.executeQueryList(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
 				},
 				new Object[] {uid});

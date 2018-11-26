@@ -43,9 +43,12 @@ public class Notify extends HttpServlet {
 
 
 		String json = DbHelper.executeUpdateJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
+				DbHelper.ParamType.STRING,
 				DbHelper.ParamType.STRING
 				},
 				new Object[] {inspector_uid, cid,cid});
+		
+		System.out.println(json);
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsondata = objectMapper.readValue(json, ObjectNode.class);

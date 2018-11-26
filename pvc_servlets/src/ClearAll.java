@@ -37,7 +37,7 @@ public class ClearAll extends HttpServlet {
 
 		String uid = (String) session.getAttribute("id");
 		
-		String query = "delete from notifications where uid = ?";
+		String query = "delete from notifications where person_uid = ?";
 		String json = DbHelper.executeUpdateJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
 				},
 				new Object[] {uid});

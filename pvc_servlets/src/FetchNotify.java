@@ -39,16 +39,18 @@ public class FetchNotify extends HttpServlet {
 		}
 		String uid = (String) session.getAttribute("id");
 		
-		String query = "select * from notifications where uid = ? order by time";
+		String query = "select * from notifications where person_uid = ? order by time";
 		String json = DbHelper.executeQueryJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
 				},
 				new Object[] {uid});
 		
 		
-		String query1 = "update notifications set read = 1 where uid=?";
-		String json1 = DbHelper.executeUpdateJson(query, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
+		String query1 = "update notifications set read = 1 where person_uid=?";
+		String json1 = DbHelper.executeUpdateJson(query1, new DbHelper.ParamType[] { DbHelper.ParamType.STRING,
 				},
 				new Object[] {uid});
+		
+		System.out.println(json);
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsondata = objectMapper.readValue(json, ObjectNode.class);
