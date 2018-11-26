@@ -5,6 +5,7 @@ import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'parkinfo.dart';
 
 
 class MapPage extends StatefulWidget{
@@ -25,7 +26,7 @@ class MapPageState extends State<MapPage>{
       flex: 6,
       child: new FlutterMap(
         options: new MapOptions(
-          center: new LatLng(19.0, 73.0),
+          center: new LatLng(Session.latitude, Session.longitude),
           zoom: 13.0,
         ),
         layers: [
@@ -82,7 +83,12 @@ class MapPageState extends State<MapPage>{
                 color: d['is_street'] == "0" ? Colors.red : Colors.green,
                 iconSize: 25.0,
                 onPressed: () {
-                  print('Marker tapped');
+                  Map<String, dynamic> s = <String, dynamic>{};
+                  s['label'] = d['label'];
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ParkInfoAll(d)),
+                  );
                 },
               ),
             ),

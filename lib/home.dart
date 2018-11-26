@@ -81,14 +81,15 @@ class MySearchPage extends State<SearchSite> {
                   ),
                   suggestionsCallback: (pattern) async {
                     Session login = new Session();
-                    return await login.get(
+                    var response = await login.get(
                         login.getURL() + "AutoCompleteUser?latitude=" + Session.latitude.toString()
-                            + "&longitude=" + Session.longitude.toString() + "&term=" + pattern)
-                        .then((t) {
-                      var p = json.decode(t);
-                      print(p);
-                      return p;
-                    });
+                            + "&longitude=" + Session.longitude.toString() + "&term=" + pattern);
+                    List<Map<String, dynamic> > res = <Map<String, dynamic> >[];
+                    for (var d in json.decode(response)['data']){
+                      res.add(d);
+                    }
+                    return res;
+
                   },
                   itemBuilder: (context, suggestion) {
                     return ListTile(
