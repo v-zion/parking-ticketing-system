@@ -23,7 +23,7 @@ void _checkUpdate(Timer t){
     var q=json.decode(p);
     if(q["data"]==0){
       print(q);
-      login.bell=Icon(Icons.notifications_active);
+      Session.bell=Icon(Icons.notifications_active);
     }
   });
 }
@@ -61,17 +61,6 @@ class LoginFormState extends State<LoginForm> {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text('Login Page'),
-          actions: <Widget>[
-            new IconButton(
-                icon: session.bell,
-                onPressed: (){
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Notifications()),
-                  );
-                }
-            )
-          ]
         ),
         body: new Builder(
           builder: (context) => new Form(

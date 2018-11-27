@@ -38,7 +38,7 @@ class OwnersPageState extends State<OwnersPage> {
             title: const Text('My Parking Malls'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,
@@ -66,7 +66,7 @@ class OwnersPageState extends State<OwnersPage> {
             title: const Text('Loading'),
             actions: <Widget>[
               new IconButton(
-                  icon: session.bell,
+                  icon: Session.bell,
                   onPressed: (){
                     Navigator.pushReplacement(
                       context,

@@ -28,7 +28,7 @@ class VehicleListState extends State<VehicleListPage> {
             title: const Text('My Vehicles'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,
@@ -56,7 +56,7 @@ class VehicleListState extends State<VehicleListPage> {
               title: const Text('Loading'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,

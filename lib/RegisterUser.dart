@@ -30,7 +30,7 @@ class RegisterUserState extends State<RegisterUser> {
           title: new Text('Register User'),
             actions: <Widget>[
               new IconButton(
-                  icon: session.bell,
+                  icon: Session.bell,
                   onPressed: (){
                     Navigator.pushReplacement(
                       context,

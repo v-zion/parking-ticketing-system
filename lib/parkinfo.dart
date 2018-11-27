@@ -50,7 +50,7 @@ class ParkInfo extends State<ParkInfoAll>{
               title: const Text('Loading'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,
@@ -71,7 +71,7 @@ class ParkInfo extends State<ParkInfoAll>{
               title: const Text('Select Floor'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,

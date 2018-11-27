@@ -33,7 +33,7 @@ class MyNotifications extends State<Notifications>{
       if(json.decode(q)["status"]) {
         setState(() {
 //        print(q);
-          login.bell=Icon(Icons.notifications_none);
+          Session.bell=Icon(Icons.notifications_none);
           notifs = json.decode(q)['data'] as List;
           print(notifs);
           outcome = 1;
@@ -70,7 +70,7 @@ class MyNotifications extends State<Notifications>{
         color: const Color(0xFF00FF00),
         child: new ListTile(
             contentPadding: EdgeInsets.all(10.0),
-            title: new Text("Car "+u["cid"]+" parked. Refill your balance." ),
+            title: new Text("Amount: "+u["balance"]+". Refill your balance." ),
 //          subtitle: new Text()
         )
       );
@@ -79,7 +79,7 @@ class MyNotifications extends State<Notifications>{
       return new Container(
         child: new ListTile(
             contentPadding: EdgeInsets.all(10.0),
-            title: new Text("Car "+u["cid"]+" parked. Refill your balance." ),
+            title: new Text("Amount:  "+u["balance"]+". Refill your balance." ),
 //          subtitle: new Text()
         )
       );

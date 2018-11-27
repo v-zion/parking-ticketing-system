@@ -37,7 +37,7 @@ class ParkStreetState extends State<ParkStreet> {
           title: new Text('Park on a street'),
             actions: <Widget>[
               new IconButton(
-                  icon: session.bell,
+                  icon: Session.bell,
                   onPressed: (){
                     Navigator.pushReplacement(
                       context,

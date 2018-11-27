@@ -31,7 +31,7 @@ class _ScanState extends State<ScanScreen> {
         title: new Text('QR Code Scanner'),
           actions: <Widget>[
             new IconButton(
-                icon: session.bell,
+                icon: Session.bell,
                 onPressed: (){
                   Navigator.pushReplacement(
                     context,

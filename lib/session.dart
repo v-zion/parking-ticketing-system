@@ -14,7 +14,7 @@ class Session {
   static double latitude = null;
   static double longitude = null;
   var uid="";
-  Widget bell=new Icon(Icons.notifications_none);
+  static Widget bell=new Icon(Icons.notifications_none);
   bool notify;
   static final Session _session = new Session._internal();
   factory Session(){

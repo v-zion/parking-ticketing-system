@@ -60,7 +60,7 @@ class MySearchPage extends State<SearchSite> {
             title: const Text('Loading'),
             actions: <Widget>[
               new IconButton(
-                  icon: session.bell,
+                  icon: Session.bell,
                   onPressed: (){
                     Navigator.pushReplacement(
                       context,
@@ -82,7 +82,7 @@ class MySearchPage extends State<SearchSite> {
             title: Text(title),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,

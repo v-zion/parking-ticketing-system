@@ -91,7 +91,7 @@ class MyWalletPage extends State<MyWallet>{
               title: const Text('Loading'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,
@@ -115,7 +115,7 @@ class MyWalletPage extends State<MyWallet>{
             title: const Text('My Wallet'),
               actions: <Widget>[
                 new IconButton(
-                    icon: session.bell,
+                    icon: Session.bell,
                     onPressed: (){
                       Navigator.pushReplacement(
                         context,

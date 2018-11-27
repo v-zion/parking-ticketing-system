@@ -35,7 +35,7 @@ class GenerateScreenState extends State<GenerateScreen> {
         title: Text('QR Code Generator'),
           actions: <Widget>[
             new IconButton(
-                icon: session.bell,
+                icon: Session.bell,
                 onPressed: (){
                   Navigator.pushReplacement(
                     context,

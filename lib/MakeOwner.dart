@@ -26,7 +26,7 @@ class MakeOwnerState extends State<MakeOwner> {
           title: new Text('Own a car'),
             actions: <Widget>[
               new IconButton(
-                  icon: session.bell,
+                  icon: Session.bell,
                   onPressed: (){
                     Navigator.pushReplacement(
                       context,
