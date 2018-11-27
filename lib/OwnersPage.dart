@@ -36,17 +36,6 @@ class OwnersPageState extends State<OwnersPage> {
         home: Scaffold(
           appBar: AppBar(
             title: const Text('My Parking Malls'),
-              actions: <Widget>[
-                new IconButton(
-                    icon: Session.bell,
-                    onPressed: (){
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Notifications()),
-                      );
-                    }
-                )
-              ]
           ),
           body: ListView.builder(
             itemBuilder: (BuildContext context, int index){
