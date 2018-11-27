@@ -181,12 +181,12 @@ class EntryState extends State<Entry>{
   void _exitPark(String cid){
     showDialog(
       context: context,
-      builder: (context) => new AlertDialog(
+      builder: (local_context) => new AlertDialog(
         title: new Text("Are you sure"),
         content: new Text("Do you really want to exit this car from parking?"),
         actions: <Widget>[
-          FlatButton(onPressed: () => Navigator.pop(context), child: Text('No'),),
-          FlatButton(onPressed: () => _reallyExit(cid, context), child: Text('Yes'),),
+          FlatButton(onPressed: () => Navigator.pop(local_context), child: Text('No'),),
+          FlatButton(onPressed: () => _reallyExit(cid, local_context), child: Text('Yes'),),
         ],
       ),
     );
