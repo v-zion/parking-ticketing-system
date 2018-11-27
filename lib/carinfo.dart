@@ -46,12 +46,12 @@ class CarInfoAll extends State<CarInfo>{
   _handleSubmit(cid){
     showDialog(
       context: context,
-      builder: (context) => new AlertDialog(
+      builder: (local_context) => new AlertDialog(
         title: new Text("Are you sure"),
         content: new Text("Car: "+cid+"\nLocation: "+s["value"]+"\nFloor: "+f),
         actions: <Widget>[
-          FlatButton(onPressed: () => Navigator.pop(context), child: Text('No'),),
-          FlatButton(onPressed: () => _reallyPark(cid, context), child: Text('Yes'),),
+          FlatButton(onPressed: () => Navigator.pop(local_context), child: Text('No'),),
+          FlatButton(onPressed: () => _reallyPark(cid, local_context), child: Text('Yes'),),
         ],
       ),
     );
