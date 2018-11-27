@@ -31,15 +31,23 @@ public class ParkInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) { //not logged in
+			response.getWriter().print(DbHelper.errorJson("Not logged in").toString());
+			return;
+		}
+		
+		String userid = (String) session.getAttribute("id");
 		
 		String pid = (String) request.getParameter("pid");
 		String query = 
-				"select * from parking_mall natural join parking_floor where pid=? and free_space>0";
+				"select * from parking_mall natural join parking_floor where pid=? and free_space>0 and price < (select amount from wallet where uid=?)";
 		String res = DbHelper.executeQueryJson(query, 
 				new DbHelper.ParamType[] { 
+						DbHelper.ParamType.STRING,
 						DbHelper.ParamType.STRING
 						},
-				new String[] {pid});
+				new String[] {pid, userid});
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);
